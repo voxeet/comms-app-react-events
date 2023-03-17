@@ -1,0 +1,2 @@
+. !text !filter !merge !diff
+backend/img/client_access_token.png !text !filter !merge !diff

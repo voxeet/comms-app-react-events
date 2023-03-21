@@ -1,0 +1,14 @@
+[build]
+
+  command = "yarn build"
+
+  publish = "dist/"
+
+[functions]
+
+  directory = "../api-proxy/functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

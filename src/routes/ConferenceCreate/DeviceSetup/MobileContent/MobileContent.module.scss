@@ -1,0 +1,64 @@
+@import '@styles/breakpoints.scss';
+
+.infoBarContainer {
+  position: fixed;
+}
+
+.container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .mediaButtonsSection {
+    display: flex;
+
+    .spacer {
+      width: 24px;
+    }
+  }
+
+  .mediaWarning {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.videoRwd {
+  width: 224px !important;
+  height: 399px !important;
+
+  @include rwd('tablet') {
+    width: 224px !important;
+    height: 399px !important;
+  }
+
+  @include rwd('mobile') {
+    width: 184px !important;
+    height: 328px !important;
+  }
+
+  @include rwd('mobileSmall') {
+    width: 112px !important;
+    height: 200px !important;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .videoRwd {
+    @include rwd('tablet') {
+      width: 399px !important;
+      height: 224px !important;
+    }
+
+    @include rwd('mobile') {
+      width: 328px !important;
+      height: 184px !important;
+    }
+
+    @include rwd('mobileSmall') {
+      width: 200px !important;
+      height: 112px !important;
+    }
+  }
+}

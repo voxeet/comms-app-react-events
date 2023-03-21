@@ -1,0 +1,10 @@
+.container {
+  background-color: var(--colors-black);
+  height: 100%;
+}
+
+.setup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

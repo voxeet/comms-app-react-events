@@ -1,0 +1,34 @@
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 80px;
+}
+
+.live {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+
+  .buttons {
+    padding: var(--spaces-s);
+    display: flex;
+    gap: var(--spaces-s);
+    justify-content: center;
+  }
+}
+
+.video {
+  padding: var(--spaces-s) var(--spaces-s) 0 var(--spaces-s);
+}
+
+.notLive {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spaces-xxs);
+}

@@ -1,0 +1,12 @@
+.container {
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+
+  .version {
+    position: absolute;
+    bottom: 0;
+  }
+}

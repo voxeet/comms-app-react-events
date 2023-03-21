@@ -1,0 +1,8 @@
+.container {
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  border-bottom: 1px solid var(--colors-grey-700);
+}

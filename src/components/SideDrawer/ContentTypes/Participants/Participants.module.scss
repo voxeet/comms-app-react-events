@@ -1,0 +1,23 @@
+.container {
+  display: grid;
+  grid-template-rows: 110px 1fr;
+}
+
+.participants {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--spaces-m);
+  gap: var(--spaces-m);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: var(--spaces-s) 0;
+  border-bottom: 1px solid var(--colors-grey-700);
+
+  .avatar {
+    margin-right: var(--spaces-s);
+  }
+}

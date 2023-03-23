@@ -39,6 +39,7 @@ const SideBar = ({
     <div className={styles.sideBar}>
       {onParticipantsClick && (
         <SideBarButton
+          testID="ParticipantsButton"
           badge={numParticipants}
           badgeColor="grey.400"
           tooltipText={intl.formatMessage({ id: 'participantsLabel' })}
@@ -50,6 +51,7 @@ const SideBar = ({
       {onInviteClick && (
         <div>
           <SideBarButton
+            testID="InviteButton"
             tooltipText={intl.formatMessage({ id: 'inviteLabel' })}
             icon="invite"
             onClick={onInviteClick}
@@ -59,6 +61,7 @@ const SideBar = ({
       {onSettingsClick && (
         <div className={styles.aboveDivider}>
           <SideBarButton
+            testID="SettingsButton"
             tooltipText={intl.formatMessage({ id: 'settings' })}
             icon="settings"
             onClick={onSettingsClick}
@@ -68,6 +71,7 @@ const SideBar = ({
       {onExitConfirm && (
         <div className={styles.exit}>
           <SideBarButton
+            testID="LeaveEventButton"
             tooltipText={intl.formatMessage({ id: 'exit' })}
             icon="exit"
             backgroundColor={getColor('infoError')}
@@ -75,15 +79,21 @@ const SideBar = ({
           />
         </div>
       )}
-      <Modal isVisible={showLeaveCheckModal} close={() => setShowLeaveCheckModal(false)} closeButton overlayClickClose>
+      <Modal
+        testID="LeaveEventModel"
+        isVisible={showLeaveCheckModal}
+        close={() => setShowLeaveCheckModal(false)}
+        closeButton
+        overlayClickClose
+      >
         <Space m="l" className={styles.modal}>
-          <Text type="h6" align="center">
+          <Text testID="LeaveEventModelDescription" type="h6" align="center">
             Are you sure you want to leave the event?
           </Text>
-          <Button size="s" fw onClick={onExitConfirm}>
+          <Button testID="LeaveButton" size="s" fw onClick={onExitConfirm}>
             leave event
           </Button>
-          <Button variant="secondary" size="s" fw onClick={() => setShowLeaveCheckModal(false)}>
+          <Button testID="CancelButton" variant="secondary" size="s" fw onClick={() => setShowLeaveCheckModal(false)}>
             cancel
           </Button>
         </Space>

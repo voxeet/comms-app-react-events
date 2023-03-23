@@ -4,6 +4,7 @@ import {
   InfoBar,
   JoinConferenceButton,
   Overlay,
+  Pill,
   Space,
   Spinner,
   useAudio,
@@ -188,6 +189,9 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
               username={username}
               isMicrophonePermission={isMicrophonePermission}
             />
+            <Space className={styles.pill}>
+              <Pill testID="UsernamePill" text={username} size="l" active />
+            </Space>
           </Space>
           <Space mt="m" className={styles.buttonsBar}>
             <ToggleMicrophoneButton size="l" permissions={isMicrophonePermission} />
@@ -195,7 +199,13 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
             <ToggleVideoButton size="l" permissions={isCameraPermission} />
           </Space>
           <Space className={styles.permissionsContainer}>
-            <Text labelKey="permissions" type="caption" color="grey.200" align="center" />
+            <Text
+              testID="PermissionsWarningLabel"
+              labelKey="permissions"
+              type="caption"
+              color="grey.200"
+              align="center"
+            />
           </Space>
         </Space>
         <Space className={styles.columnRight}>

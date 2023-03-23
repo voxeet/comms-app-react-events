@@ -20,24 +20,28 @@ export const InviteParticipants = ({ coHostLink, viewerLink }: InviteParticipant
 
   return (
     <div className={styles.container}>
-      <Text type="H2">{heading}</Text>
+      <Text testID="InviteParticipantsLabel" type="H2">
+        {heading}
+      </Text>
       {coHostLink && (
         <div className={styles.copy}>
-          <Text>{intl.formatMessage({ id: 'inviteCoHosts' })}</Text>
+          <Text testID="InviteCoHostsLabel">{intl.formatMessage({ id: 'inviteCoHosts' })}</Text>
           <Copy
             copyValue={coHostLink}
             tooltipText={intl.formatMessage({ id: 'copyLink' })}
             successText={intl.formatMessage({ id: 'linkCopied' })}
+            testID="InviteCoHosts"
           />
         </div>
       )}
       {viewerLink && (
         <div className={styles.copy}>
-          <Text>{intl.formatMessage({ id: 'inviteViewers' })}</Text>
+          <Text testID="inviteViewersLabel">{intl.formatMessage({ id: 'inviteViewers' })}</Text>
           <Copy
             copyValue={viewerLink}
             tooltipText={intl.formatMessage({ id: 'copyLink' })}
             successText={intl.formatMessage({ id: 'linkCopied' })}
+            testID="InviteViewers"
           />
         </div>
       )}

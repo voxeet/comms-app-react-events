@@ -27,7 +27,13 @@ export const ConferenceCreateFooter = () => {
 
   return (
     <Space fw testID="ConferenceCreateFooter" className={styles.container} style={{ height: footerHeight }}>
-      <Text type="captionRegular" color="grey.300" labelKey="copyright" values={{ year: new Date().getFullYear() }} />
+      <Text
+        testID="CopyRight"
+        type="captionRegular"
+        color="grey.300"
+        labelKey="copyright"
+        values={{ year: new Date().getFullYear() }}
+      />
       <Space className={styles.version}>
         <Version />
       </Space>

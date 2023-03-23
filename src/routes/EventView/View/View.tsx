@@ -48,6 +48,7 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
             </div>
             <div className={styles.buttons}>
               <MediaButton
+                testID="ToggleVideoButton"
                 activeIcon="camera"
                 defaultIcon="cameraOff"
                 disabledIcon="cameraOff"
@@ -58,6 +59,7 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
                 onClick={() => setDisableVideo(!disableVideo)}
               />
               <MediaButton
+                testID="ToggleAudioButton"
                 activeIcon="speaker"
                 defaultIcon="speakerOff"
                 disabledIcon="speakerOff"
@@ -71,8 +73,8 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
           </div>
         ) : (
           <div className={styles.notLive}>
-            <Text type="H2" labelKey="viewerNotLive" />
-            <Text color="grey.200" labelKey="viewerNotLiveSubText" />
+            <Text testID="EventNotLivePageHeading" type="H2" labelKey="viewerNotLive" />
+            <Text testID="EventNotLivePageDescription" color="grey.200" labelKey="viewerNotLiveSubText" />
           </div>
         )}
         <SideBar

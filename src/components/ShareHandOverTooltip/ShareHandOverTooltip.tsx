@@ -18,15 +18,18 @@ const ShareHandOverTooltip = ({ cancel, accept, requester }: ShareTakeOverToolti
     <>
       <Space className={styles.infoSection} mb="s">
         <Space mr="xs">
-          <Avatar size="s" participant={requester} />
+          <Avatar testID="HostAvatar" size="s" participant={requester} />
         </Space>
         <Text className={styles.text}>
-          <Text type="paragraphMedium">{requester}</Text>
+          <Text testID="Message" type="paragraphMedium">
+            {requester}
+          </Text>
           {intl.formatMessage({ id: 'handoverTooltipDesc' })}
         </Text>
       </Space>
       <Space className={styles.buttonSection}>
         <Button
+          testID="DeclineButton"
           size="s"
           variant="secondary"
           className={styles.button}
@@ -37,7 +40,7 @@ const ShareHandOverTooltip = ({ cancel, accept, requester }: ShareTakeOverToolti
           {intl.formatMessage({ id: 'decline' })}
         </Button>
         <Space className={styles.spacer} />
-        <Button size="s" variant="primary" className={styles.button} onClick={accept}>
+        <Button testID="AllowButton" size="s" variant="primary" className={styles.button} onClick={accept}>
           {intl.formatMessage({ id: 'allow' })}
         </Button>
       </Space>

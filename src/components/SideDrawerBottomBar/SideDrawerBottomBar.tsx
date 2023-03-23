@@ -24,9 +24,9 @@ const SideDrawerBottomBarButton = (
 ) => {
   const { tooltipText, isSelected, ...rest } = props;
   return (
-    <Tooltip text={tooltipText}>
+    <Tooltip testID="ToolTip" text={tooltipText}>
       <Space className={styles.container}>
-        <Icon name="circle" size="xxxs" color={isSelected ? 'primary' : 'transparent'} />
+        <Icon testID="ActiveDrawer" name="circle" size="xxxs" color={isSelected ? 'primary' : 'transparent'} />
         <IconButton
           variant="circle"
           size="s"
@@ -56,9 +56,10 @@ const SideDrawerBottomBar = ({
   const [showLeaveCheckModal, setShowLeaveCheckModal] = useState(false);
 
   return (
-    <div className={styles.sideBar}>
+    <div data-testid="SideDrawerBottomBar" className={styles.sideBar}>
       {onParticipantsClick && (
         <SideDrawerBottomBarButton
+          testID="ParticipantsButton"
           badgeColor="grey.400"
           tooltipText={intl.formatMessage({ id: 'participantsLabel' })}
           icon="participants"
@@ -68,6 +69,7 @@ const SideDrawerBottomBar = ({
       )}
       {onSettingsClick && (
         <SideDrawerBottomBarButton
+          testID="SettingsButton"
           tooltipText={intl.formatMessage({ id: 'settings' })}
           icon="settings"
           isSelected={contentType === SideDrawerContentTypes.DEVICE_SETUP}
@@ -77,6 +79,7 @@ const SideDrawerBottomBar = ({
       {onExitConfirm && (
         <div className={styles.exit}>
           <SideDrawerBottomBarButton
+            testID="LeaveButton"
             tooltipText={intl.formatMessage({ id: 'exit' })}
             icon="exit"
             isSelected={false}
@@ -87,15 +90,21 @@ const SideDrawerBottomBar = ({
           />
         </div>
       )}
-      <Modal isVisible={showLeaveCheckModal} close={() => setShowLeaveCheckModal(false)} closeButton overlayClickClose>
+      <Modal
+        testID="LeaveEventModel"
+        isVisible={showLeaveCheckModal}
+        close={() => setShowLeaveCheckModal(false)}
+        closeButton
+        overlayClickClose
+      >
         <Space m="l" className={styles.modal}>
-          <Text type="h6" align="center">
+          <Text testID="LeaveEventModelDescription" type="h6" align="center">
             Are you sure you want to leave the event?
           </Text>
-          <Button size="s" fw onClick={onExitConfirm}>
+          <Button testID="LeaveButton" size="s" fw onClick={onExitConfirm}>
             leave event
           </Button>
-          <Button variant="secondary" size="s" fw onClick={() => setShowLeaveCheckModal(false)}>
+          <Button testID="CancelButton" variant="secondary" size="s" fw onClick={() => setShowLeaveCheckModal(false)}>
             cancel
           </Button>
         </Space>

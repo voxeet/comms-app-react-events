@@ -64,7 +64,7 @@ export const TopBar = ({
   }, []);
 
   const renderRecordModal = (isVisible: boolean, accept: () => void, cancel: () => void) => (
-    <RecordingModal isOpen={isVisible} closeModal={cancel} accept={accept} />
+    <RecordingModal testID="RecordingModel" isOpen={isVisible} closeModal={cancel} accept={accept} />
   );
 
   return (
@@ -76,18 +76,21 @@ export const TopBar = ({
         padding: 16,
         borderBottom: `1px solid ${getColor('grey.700')}`,
       }}
+      testID="TopBar"
     >
       <Space style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 16 }}>
         <Pill
           size="l"
           style={{ minWidth: 122, height: 30, borderRadius: 6, backgroundColor: getColor('grey.800') }}
           text="Logo"
+          testID="Logo"
         />
-        <Text type="h6" color="white">
+        <Text type="h6" color="white" testID="MeetingName">
           {conference?.alias}
         </Text>
         {!isLive && joinType === 'viewer' ? null : (
           <Pill
+            testID="StreamingMode"
             style={{
               padding: '12px 12px',
               backgroundColor: isLive ? getColor('red.500') : getColor('grey.300'),
@@ -96,14 +99,16 @@ export const TopBar = ({
           />
         )}
 
-        <Text style={{ color: getColor('grey.200') }}>{eventTime}</Text>
+        <Text testID="MeetingTime" style={{ color: getColor('grey.200') }}>
+          {eventTime}
+        </Text>
       </Space>
       <Space style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
           {isLive && (
             <>
               <Icon name="eyeOpen" color="grey.400" />
-              <Text type="paragraphExtraSmall" color="grey.400" style={{ paddingLeft: 8 }}>
+              <Text testID="ViewersCount" type="paragraphExtraSmall" color="grey.400" style={{ paddingLeft: 8 }}>
                 {`${viewerCount} viewer${viewerCount === 1 ? '' : 's'}`}
               </Text>
             </>
@@ -130,17 +135,18 @@ export const TopBar = ({
                 renderStopConfirmation={renderRecordModal}
               />
               {recordingStatus === RecordingStatus.Active && (
-                <Text labelKey="recording" type="paragraphExtraSmall" color="#B9B9BA" />
+                <Text testID="RecordingLabel" labelKey="recording" type="paragraphExtraSmall" color="#B9B9BA" />
               )}
             </>
           )}
         </Space>
-        <Space>
+        <Space testID="Timer">
           <Timer alwaysShowHour type="h4Thin" runTimer={isLive} />
         </Space>
-        <Icon name="circle" size="xxxs" color={isLive ? 'red.500' : 'grey.300'} />
+        <Icon testID="StreamingStatus" name="circle" size="xxxs" color={isLive ? 'red.500' : 'grey.300'} />
         {joinType === 'host' && onStreamClick && (
           <Button
+            testID={`${buttonText.replaceAll(/\s/g, '')}Button`}
             disabled={isLoading}
             style={{ width: 107, height: 30, backgroundColor: isLive ? getColor('red.500') : '#00B865' }}
             onClick={onStreamClick}

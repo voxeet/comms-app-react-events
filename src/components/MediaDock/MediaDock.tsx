@@ -1,56 +1,31 @@
-import AskForShareTooltip from '@components/AskForShareTooltip/AskForShareTooltip';
-import ScreenSharingTakeOverModal from '@components/ScreenSharingTakeOverModal/ScreenSharingTakeOverModal';
-import ShareHandOverTooltip from '@components/ShareHandOverTooltip/ShareHandOverTooltip';
 import {
-  DialogTooltip,
   LocalToggleAudioButton,
   LocalToggleVideoButton,
-  ScreenShareButton,
+  MediaButton,
+  ShareStatus,
   Space,
   useConference,
-  useNotifications,
+  useScreenSharing,
 } from '@dolbyio/comms-uikit-react';
-import { ReactNode, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 
 import styles from './MediaDock.module.scss';
 
-export const MediaDock = () => {
+export type MediaDockProps = {
+  onScreenShareClick: () => void;
+};
+
+export const MediaDock = ({ onScreenShareClick }: MediaDockProps) => {
   const { conference } = useConference();
-  const { showSuccessNotification, showErrorNotification } = useNotifications();
+  const { status, isLocalUserPresentationOwner, isPendingTakeoverRequest } = useScreenSharing();
   const intl = useIntl();
 
   if (conference === null) {
     return null;
   }
 
-  const renderTakeOver = useCallback(
-    (isOpen: boolean, close: () => void): ReactNode => (
-      <ScreenSharingTakeOverModal isOpen={isOpen} closeModal={close} />
-    ),
-    [],
-  );
-
-  const renderHandOver = useCallback(
-    (isVisible: boolean, accept: () => void, cancel: () => void, requester?: string): ReactNode => (
-      <DialogTooltip isVisible={isVisible}>
-        <ShareHandOverTooltip accept={accept} cancel={cancel} requester={requester} />
-      </DialogTooltip>
-    ),
-    [],
-  );
-
-  const renderAskForShare = useCallback(
-    (isVisible: boolean, accept: () => void, cancel: () => void): ReactNode => (
-      <DialogTooltip isVisible={isVisible}>
-        <AskForShareTooltip accept={accept} cancel={cancel} />
-      </DialogTooltip>
-    ),
-    [],
-  );
-
   return (
-    <Space testID="MediaDock" className={styles.dock} p="m">
+    <Space testID="MediaDock" className={styles.dock}>
       <Space className={styles.row}>
         <LocalToggleAudioButton
           size="s"
@@ -78,16 +53,17 @@ export const MediaDock = () => {
           defaultTooltipText={intl.formatMessage({ id: 'cameraOff' })}
           activeTooltipText={intl.formatMessage({ id: 'cameraOn' })}
         />
-        <ScreenShareButton
+        <MediaButton
           size="s"
+          tooltipPosition="top"
           defaultTooltipText={intl.formatMessage({ id: 'present' })}
           activeTooltipText={intl.formatMessage({ id: 'stopPresenting' })}
-          onStartSharingAction={() => showSuccessNotification(intl.formatMessage({ id: 'presentingSuccessfully' }))}
-          onStopSharingAction={() => showSuccessNotification(intl.formatMessage({ id: 'screenSharingStopped' }))}
-          onTakeOverDeclineAction={() => showErrorNotification(intl.formatMessage({ id: 'requestDeclined' }))}
-          renderTakeOver={renderTakeOver}
-          renderHandOver={renderHandOver}
-          renderAskForShare={renderAskForShare}
+          defaultIcon="present"
+          activeIcon="present"
+          disabledIcon="present"
+          isActive={status === ShareStatus.Active && isLocalUserPresentationOwner}
+          isDisabled={isPendingTakeoverRequest}
+          onClick={onScreenShareClick}
         />
       </Space>
     </Space>

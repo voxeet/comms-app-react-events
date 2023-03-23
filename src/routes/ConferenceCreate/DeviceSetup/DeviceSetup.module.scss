@@ -18,11 +18,18 @@
   .localViewContainer {
     display: flex;
     justify-content: center;
+    position: relative;
 
     .infoBarContainer {
       position: absolute;
       z-index: 1;
       transform-origin: center;
+    }
+
+    .pill {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
     }
   }
 

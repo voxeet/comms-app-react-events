@@ -6,4 +6,3 @@ dist-ssr
 node_modules
 
 .env
-.vscode

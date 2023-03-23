@@ -1,0 +1,2 @@
+create header title: '[test-id=ConferenceCreateHeaderTitle]'
+join header title: '$ref: create header title'

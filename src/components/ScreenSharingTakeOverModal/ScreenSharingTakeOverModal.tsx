@@ -29,11 +29,16 @@ const ScreenSharingTakeOverModal = ({
     <Modal testID={testID} isVisible={isOpen} close={closeModal} closeButton>
       <ModalContentBase
         buttons={[
-          { onClick: handleAskForPermission, label: intl.formatMessage({ id: 'askForPermission' }) },
+          {
+            onClick: handleAskForPermission,
+            label: intl.formatMessage({ id: 'askForPermission' }),
+            testID: 'AskForPermissionButton',
+          },
           {
             onClick: closeModal,
             label: intl.formatMessage({ id: 'cancel' }),
             variant: 'secondary',
+            testID: 'CancelButton',
           },
         ]}
         headline={intl.formatMessage({ id: 'someoneElseIsPresenting' })}

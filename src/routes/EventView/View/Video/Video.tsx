@@ -21,7 +21,14 @@ export const Video = ({ disableVideo, mediaStream }: VideoProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <video ref={videoRef} className={cx(styles.video, disableVideo && styles.hidden)} muted autoPlay playsInline />
+      <video
+        data-testid="videoTag"
+        ref={videoRef}
+        className={cx(styles.video, disableVideo && styles.hidden)}
+        muted
+        autoPlay
+        playsInline
+      />
     </div>
   );
 };

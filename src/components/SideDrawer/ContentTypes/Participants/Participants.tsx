@@ -11,11 +11,11 @@ const ParticipantItem = ({ participant, isLocal }: { participant: Participant; i
   const intl = useIntl();
 
   return (
-    <Space className={styles.item}>
+    <Space testID="ParticipantItem" className={styles.item}>
       <Space className={styles.avatar}>
         <ParticipantAvatar testID="ParticipantAvatar" size="s" participant={participant} borderColor="grey.100" />
       </Space>
-      <Text>
+      <Text testID="ParticipantName">
         {participant.info.name} {isLocal ? `(${intl.formatMessage({ id: 'you' })})` : ''}
       </Text>
       <ParticipantSpeakingIndicator
@@ -49,7 +49,13 @@ const Participants = ({ activeParticipants }: { activeParticipants?: ActiveParti
       <DrawerMainContent>
         <Space className={styles.participants}>
           <div>
-            <Text color="grey.100" type="H3" labelKey="hostParticipants" values={{ count: hosts.length }} />
+            <Text
+              testID="HostsCount"
+              color="grey.100"
+              type="H3"
+              labelKey="hostParticipants"
+              values={{ count: hosts.length }}
+            />
             {hosts.map((p) => (
               <ParticipantItem
                 key={p.id}
@@ -59,7 +65,13 @@ const Participants = ({ activeParticipants }: { activeParticipants?: ActiveParti
             ))}
           </div>
           <div>
-            <Text color="grey.100" type="H3" labelKey="viewerCount" values={{ count: viewerCount }} />
+            <Text
+              testID="ViewersCount"
+              color="grey.100"
+              type="H3"
+              labelKey="viewerCount"
+              values={{ count: viewerCount }}
+            />
           </div>
         </Space>
       </DrawerMainContent>

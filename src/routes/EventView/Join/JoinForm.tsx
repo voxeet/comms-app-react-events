@@ -1,5 +1,8 @@
 import { Button, Input } from '@dolbyio/comms-uikit-react';
-import { useCreateConferenceValidation } from '@src/routes/ConferenceCreate/ConferenceCreateInput/ConferenceCreateInput';
+import {
+  translationKeys,
+  useCreateConferenceValidation,
+} from '@src/routes/ConferenceCreate/ConferenceCreateInput/ConferenceCreateInput';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -36,6 +39,7 @@ export const JoinForm = ({ onSubmit }: JoinFormProps) => {
         labelBackground="grey.900"
         labelColor="white"
         textColor="white"
+        testID={translationKeys.user.inputTestId}
         label={intl.formatMessage({ id: 'yourName' })}
         value={name}
         placeholder={intl.formatMessage({ id: 'enterName' })}
@@ -43,7 +47,9 @@ export const JoinForm = ({ onSubmit }: JoinFormProps) => {
         validation={validation}
         autoFocus
       />
-      <Button type="submit">Next</Button>
+      <Button testID="Next" type="submit">
+        Next
+      </Button>
     </form>
   );
 };

@@ -14,7 +14,7 @@ type CopyProps = Omit<IconButtonProps, 'icon' | 'onClick'> & {
   successText: string;
 };
 
-export const Copy = ({ label, copyValue, tooltipText, successText }: CopyProps) => {
+export const Copy = ({ label, copyValue, tooltipText, successText, testID }: CopyProps) => {
   const [copied, setCopied] = useState(false);
   const { isDesktop } = useTheme();
   const copy = async () => {
@@ -32,11 +32,11 @@ export const Copy = ({ label, copyValue, tooltipText, successText }: CopyProps) 
   };
 
   return (
-    <div className={styles.copy}>
-      <Tooltip position="top" text={copied ? successText : tooltipText}>
-        <IconButton icon="copy" size="m" backgroundColor="transparent" onClick={copy} />
+    <div data-testid={testID} className={styles.copy}>
+      <Tooltip testID="Tooltip" position="top" text={copied ? successText : tooltipText}>
+        <IconButton testID="CopyButton" icon="copy" size="m" backgroundColor="transparent" onClick={copy} />
       </Tooltip>
-      <Text>{label ?? copyValue}</Text>
+      <Text testID="Link">{label ?? copyValue}</Text>
     </div>
   );
 };

@@ -16,7 +16,7 @@ export const Join = ({ eventName, onJoinStart }: JoinProps) => {
       <ConferenceCreateHeader />
       <div className={styles.content}>
         {eventName && (
-          <Text type="H1" className={styles.eventTitle}>
+          <Text testID="MeetingName" type="H1" className={styles.eventTitle}>
             {eventName}
           </Text>
         )}

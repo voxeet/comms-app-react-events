@@ -2,7 +2,6 @@
 /* eslint-disable no-nested-ternary */
 // TODO add error handling that isn't console.log
 
-import ActionBar from '@components/ActionBar';
 import AllowAudioModal from '@components/AllowAudioModal';
 import PendingTakeoverInfoBar from '@components/PendingTakeoverInfoBar';
 import ScreenSharingPermissionModal from '@components/ScreenSharingPermissionModal/ScreenSharingPermissionModal';
@@ -31,13 +30,14 @@ import {
   useNotifications,
   ParticipantVideo,
   ParticipantsGrid,
+  Icon,
+  Button,
 } from '@dolbyio/comms-uikit-react';
 import useConferenceCreate from '@hooks/useConferenceCreate';
 import { useLiveStreaming } from '@hooks/useLiveStreaming';
 import { usePageRefresh } from '@hooks/usePageRefresh';
 import { useRealTimeStreaming } from '@hooks/useRealTimeStreaming';
 import { InviteParticipants } from '@src/components/InviteParticipants';
-import PresentersGrid from '@src/components/PresentersGrid/PresentersGrid';
 import SideBar from '@src/components/SideBar';
 import { SideDrawer } from '@src/components/SideDrawer';
 import Text from '@src/components/Text';
@@ -49,13 +49,14 @@ import useSDKErrorHandler from '@src/hooks/useSDKErrorsHandler';
 import getProxyUrl from '@src/utils/getProxyUrl';
 import { getHostPath, getRejoinPath, getViewerPath } from '@src/utils/route';
 import { Participant } from '@voxeet/voxeet-web-sdk/types/models/Participant';
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import cx from 'classnames';
+import { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import confStyles from '../Conference/Conference.module.scss';
 import { EventCoHost } from '../EventCoHost/EventCoHost';
 
+import { CollapsiblePanel } from './CollapsiblePanel/CollapsiblePanel';
 import styles from './EventHost.module.scss';
 
 const SingleHostPresent = ({
@@ -69,28 +70,32 @@ const SingleHostPresent = ({
 
   return (
     <div className={styles.singleHostPresent}>
-      <ParticipantVideo participant={participant} style={{ flexGrow: 1 }} />
+      <ParticipantVideo testID="ParticipantVideo" participant={participant} style={{ flexGrow: 1 }} />
       {showShareLinks && (
-        <div className={styles.shareLinksContainer}>
+        <div data-tesid="FirstParticipantConatiner" className={styles.shareLinksContainer}>
           <div className={styles.flex}>
             <div className={styles.shareLinksTop}>
               <Text
+                testID="ConatinerTitle"
                 className={styles.firstToJoin}
                 // If this is added in css, Text clobbers it and shrinks the text
                 style={{ fontSize: 24 }}
               >
                 {`You're`} the first to arrive
               </Text>
-              <Text>Wait or invite other participants to join</Text>
+              <Text testID="ConatinerDescription">Wait or invite other participants to join</Text>
             </div>
             <IconButton
+              testID="ConatinerClose"
               icon="close"
-              style={{ backgroundColor: 'var(--colors-grey-800)' }}
+              backgroundColor="grey.800"
               onClick={() => toggleShowShareLinks(false)}
             />
           </div>
-          <Text>Event Title ID</Text>
-          <Text style={{ color: 'var(--colors-grey-400)' }}>{meetingName}</Text>
+          <Text testID="EventTitleLabel">Event Title ID</Text>
+          <Text testID="MeetingName" style={{ color: 'var(--colors-grey-400)' }}>
+            {meetingName}
+          </Text>
           <InviteParticipants
             coHostLink={window.location.origin + getHostPath(meetingName || '')}
             viewerLink={window.location.origin + getViewerPath(meetingName || '')}
@@ -122,8 +127,7 @@ const ConfView = () => {
   } = useRealTimeStreaming(getProxyUrl());
   const { showErrorNotification } = useNotifications();
   const intl = useIntl();
-  const { isDesktop, isMobileSmall, isLandscape } = useTheme();
-  const mobileScreenShareRef = useRef<HTMLDivElement>(null);
+  const { isMobileSmall } = useTheme();
   const [isHostPanelOpen, setIsHostPanelOpen] = useState(false);
   const {
     status: screenSharingStatus,
@@ -135,6 +139,7 @@ const ConfView = () => {
     stopScreenShare,
   } = useScreenSharing();
   const { status: recordingStatus, ownerId, isLocalUserRecordingOwner, stopRecording } = useRecording();
+  const [isStopScreenShareModalVisible, setIsStopScreenShareModalVisible] = useState(false);
   const [inviteModalState, setInviteModalState] = useState({ open: false, showViewerLink: false });
   const [showBars, setShowBars] = useState(true);
   const { isLiveStreamingModeActive, isLocalUserLiveStreamingOwner, sendStreamingBeacon, streamHandler } =
@@ -223,6 +228,19 @@ const ConfView = () => {
   const isPresentationActive =
     screenSharingStatus === ShareStatus.Active || (isLocalUserPresentationOwner && isPresentationModeActive);
 
+  const openStopScreenShareModal = () => {
+    setIsStopScreenShareModalVisible(true);
+  };
+
+  const closeStopScreenShareModal = () => {
+    setIsStopScreenShareModalVisible(false);
+  };
+
+  const confirmStopScreenShare = () => {
+    closeStopScreenShareModal();
+    stopScreenShare();
+  };
+
   const openParticipantsPanel = () => {
     openDrawer(SideDrawerContentTypes.PARTICIPANTS);
   };
@@ -279,23 +297,6 @@ const ConfView = () => {
     }
   };
 
-  // TODO make something less terrible than this
-  const height = useMemo(() => {
-    const footer = 84;
-    const topbar = 80;
-    const eventNotStarted = 52;
-    const isPresenting = 40;
-    let missingHeight = footer + topbar;
-
-    if (!isRtsLive) {
-      missingHeight += eventNotStarted;
-    }
-    if (isPresentationActive) {
-      missingHeight += isPresenting;
-    }
-
-    return missingHeight;
-  }, [isHostPanelOpen, isRtsLive]);
   return (
     <ConferenceComponent id={conference?.id}>
       <div className={styles.pageLayout}>
@@ -303,31 +304,52 @@ const ConfView = () => {
           <TopBar isLive={isRtsLive} isLoading={isRtsLoading} onStreamClick={toggleRts} joinType="host" />
         </div>
         <div className={styles.main}>
-          {!isRtsLive && (
-            <div className={styles.notLiveBanner}>
-              <Text>This event {`hasn't`} started yet</Text>
+          {(!isRtsLive || isLocalUserPresentationOwner) && (
+            <div className={styles.banners}>
+              {!isRtsLive && (
+                <div data-testid="NotLiveBanner" className={cx(styles.banner, styles.notLiveBanner)}>
+                  <Text>This event {`hasn't`} started yet</Text>
+                </div>
+              )}
+              {isLocalUserPresentationOwner && (
+                <div className={cx(styles.banner, styles.screenSharingBanner)}>
+                  <div className={styles.left}>
+                    <Icon name="present" size="m" />
+                    <Text>{intl.formatMessage({ id: 'screenSharing' })}</Text>
+                    <Icon name="circle" size="xxxs" color="#00B865" />
+                  </div>
+                  <Button style={{ height: 32 }} onClick={openStopScreenShareModal}>
+                    <Text type="captionSmallDemiBold">{intl.formatMessage({ id: 'stopSharing' })}</Text>
+                  </Button>
+                </div>
+              )}
             </div>
           )}
           {/* {!isPresentationActive ? <ParticipantsGrid localText="You" /> : null} */}
-          {!isRtsLive && participants.length === 1 && !isPresentationActive ? (
-            <SingleHostPresent meetingName={params.id} participant={participants[0]} />
-          ) : !isPresentationActive ? (
-            <ParticipantsGrid localText="You" />
-          ) : null}
-          {isPresentationActive ? (
-            <Space className={confStyles.presentationWrapper} pb={!isDesktop && !isLandscape && 'xs'}>
-              {!isDesktop && <ActionBar ref={mobileScreenShareRef} mobileShare />}
+          <div className={styles.stage}>
+            {!isRtsLive && participants.length === 1 && !isPresentationActive ? (
+              <SingleHostPresent meetingName={params.id} participant={participants[0]} />
+            ) : !isPresentationActive ? (
+              <ParticipantsGrid localText="You" />
+            ) : null}
+            {isPresentationActive ? (
               <ScreenSharingPresentationBox
                 fallbackText={intl.formatMessage({ id: 'screenShareDefaultFallbackText' })}
                 fallbackButtonText={intl.formatMessage({ id: 'tryAgain' })}
                 style={{
-                  margin: 'auto',
-                  height: `calc(100% - ${height}px)`,
                   backgroundColor: 'black',
                 }}
               />
-            </Space>
-          ) : null}
+            ) : null}
+          </div>
+          <div data-testid="CollapsiblePanel" className={styles.hostPanel}>
+            <CollapsiblePanel
+              onInviteCoHostClick={openInviteCoHostModal}
+              isPresentationActive={isPresentationActive}
+              isOpen={isHostPanelOpen}
+              onOpenClick={() => setIsHostPanelOpen(!isHostPanelOpen)}
+            />
+          </div>
         </div>
         <div className={styles.sidebar}>
           <SideBar
@@ -340,14 +362,6 @@ const ConfView = () => {
             onInviteClick={openInviteParticipantsModal}
             onSettingsClick={openSettingsPanel}
             onExitConfirm={exit}
-          />
-        </div>
-        <div className={styles.footer}>
-          <CollapsiblePanel
-            onInviteCoHostClick={openInviteCoHostModal}
-            isPresentationActive={isPresentationActive}
-            isOpen={isHostPanelOpen}
-            setIsOpen={setIsHostPanelOpen}
           />
         </div>
         {/* Below this point are items that don't need specific locations on the page - they are rendered in modals or other such positions */}
@@ -365,12 +379,12 @@ const ConfView = () => {
           />
         </Overlay>
         {isPendingTakeoverRequest && (
-          <Space className={confStyles.pendingTakeoverBar} mt="s">
+          <Space className={styles.pendingTakeoverBar} mt="s">
             <PendingTakeoverInfoBar />
           </Space>
         )}
         {!isLocalUserRecordingOwner && recordingStatus === RecordingStatus.Active && (
-          <Space className={confStyles.pendingTakeoverBar} mt="s">
+          <Space className={styles.pendingTakeoverBar} mt="s">
             <InfoBar
               testID="RecordingInfoBar"
               iconName="record"
@@ -384,6 +398,7 @@ const ConfView = () => {
         )}
         <AllowAudioModal />
         <Modal
+          testID="InviteParticipantsModel"
           isVisible={inviteModalState.open}
           close={closeInviteModal}
           modalWidth={462}
@@ -398,6 +413,38 @@ const ConfView = () => {
               }
             />
           </Space>
+        </Modal>
+        <Modal
+          testID="StopScreenShareModal"
+          isVisible={isStopScreenShareModalVisible}
+          close={closeStopScreenShareModal}
+          modalWidth={375}
+          closeButton
+          overlayClickClose
+        >
+          <div className={styles.stopScreenShareModal}>
+            <Text testID="Header" type="H2" color="grey.100">
+              {intl.formatMessage({ id: 'stopScreenSharing' })}
+            </Text>
+            <Text align="center" type="bodyDefault" color="grey.100">
+              {intl.formatMessage({ id: 'stopScreenSharingModalDesc' })}
+            </Text>
+            <Button style={{ height: 32 }} onClick={confirmStopScreenShare}>
+              <Text type="captionSmallDemiBold">{intl.formatMessage({ id: 'stopSharing' })}</Text>
+            </Button>
+          </div>
+          {/* <ModalContentBase
+            buttons={[
+              {
+                onClick: confirmStopScreenShare,
+                label: intl.formatMessage({
+                  id: 'stopScreenSharing',
+                }),
+              },
+            ]}
+            headline={intl.formatMessage({ id: 'stopScreenSharing' })}
+            description={intl.formatMessage({ id: 'stopScreenSharingModalDesc' })}
+          /> */}
         </Modal>
         <ScreenSharingPermissionModal isOpen={!!permissionError} closeModal={() => setSharingErrors()} />
         <SideDrawer
@@ -437,58 +484,6 @@ const ConfView = () => {
         )} */}
       </div>
     </ConferenceComponent>
-  );
-};
-
-type CollapsiblePanelProps = {
-  onInviteCoHostClick: () => void;
-  isPresentationActive: boolean;
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-const CollapsiblePanel = ({ onInviteCoHostClick, isPresentationActive, isOpen, setIsOpen }: CollapsiblePanelProps) => {
-  const { participants } = useParticipants();
-
-  const intl = useIntl();
-
-  return (
-    <div className={styles.collapsiblePanel}>
-      <Space
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Space
-          style={{
-            display: 'flex',
-            gap: 16,
-            alignItems: 'center',
-          }}
-        >
-          <Text type="h6" color="white">
-            {intl.formatMessage({ id: 'hostLabel' })}
-          </Text>
-          <Text type="subtitleSmall" color="white">
-            {participants.length === 1 ? '1 presenter' : `${participants.length} presenters`}
-          </Text>
-        </Space>
-        <IconButton
-          onClick={() => setIsOpen(!isOpen)}
-          icon={isOpen ? 'chevronUp' : 'chevronDown'}
-          backgroundColor="grey.800"
-        />
-      </Space>
-      <Space style={{ display: isOpen ? 'block' : 'none', paddingBottom: 28, maxHeight: 330, overflow: 'scroll' }}>
-        <PresentersGrid
-          localText={intl.formatMessage({ id: 'you' })}
-          testID="PresentersGrid"
-          onInviteCoHostClick={onInviteCoHostClick}
-          forceShowAvatar={!isPresentationActive}
-        />
-      </Space>
-    </div>
   );
 };
 

@@ -40,9 +40,14 @@ const StartStreamForm = ({
   return (
     <>
       <Space p="l" />
-      <Text labelKey="createYourEvent" testID="ConferenceCreateHeaderTitle" color="white" type="H2" />
+      <Text labelKey="createYourEvent" testID="ConferenceCreatePageHeading" color="white" type="H2" />
       <Space p="xs" />
-      <Text labelKey="createEventSubtext" color="grey.200" type="paragraphSmall" />
+      <Text
+        labelKey="createEventSubtext"
+        testID="ConferenceCreatePageDescription"
+        color="grey.200"
+        type="paragraphSmall"
+      />
       <Space p="s" />
       <form
         onSubmit={async (e) => {
@@ -93,7 +98,7 @@ const StartStreamForm = ({
           validation={meetingValidation}
         />
         <Space p="s" />
-        <Button css={{ width: '100%' }} type="submit">
+        <Button testID="Next" css={{ width: '100%' }} type="submit">
           Next
         </Button>
       </form>

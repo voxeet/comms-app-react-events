@@ -1,0 +1,4 @@
+COMPONENTS:
+  - 'create-join'
+on load validation: 'next button:displayed'
+next button: '//button[text()="Next"]'

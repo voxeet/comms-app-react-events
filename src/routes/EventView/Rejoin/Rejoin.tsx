@@ -7,8 +7,10 @@ const Rejoin = ({ onRejoin }: { onRejoin: () => void }) => {
   return (
     <div className={styles.rejoin}>
       <div className={styles.rejoinContent}>
-        <Text type="quoteSmall">You left the event</Text>
-        <Button fw onClick={onRejoin}>
+        <Text testID="EventLeftPageHeading" type="quoteSmall">
+          You left the event
+        </Text>
+        <Button testID="RejoinButton" fw onClick={onRejoin}>
           Rejoin
         </Button>
       </div>

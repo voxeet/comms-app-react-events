@@ -34,12 +34,12 @@ const ModalContentBase = ({ children, buttons, headline, description, headerLogo
       <Space className={styles.mainSection}>
         {(isMobileSmall && isLandscape) || !headerLogo ? null : <ModalHeaderLogo icon={headerLogo} />}
         <Space mt="s">
-          <Text type="H2" color="grey.100">
+          <Text testID="Header" type="H2" color="grey.100">
             {headline}
           </Text>
         </Space>
         <Space mt="xs" ph="xl">
-          <Text className={styles.description} type="bodyDefault" color="grey.100">
+          <Text testID="Description" className={styles.description} type="bodyDefault" color="grey.100">
             {description}
           </Text>
         </Space>

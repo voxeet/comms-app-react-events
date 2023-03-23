@@ -1,17 +1,12 @@
-:root {
-  --sidebar-width: 80px;
-}
-
 .pageLayout {
   background-color: var(--colors-black);
   display: grid;
   height: 100%;
-  grid-template-columns: 1fr var(--sidebar-width);
-  grid-template-rows: 80px 1fr min-content;
+  grid-template-columns: 1fr 80px;
+  grid-template-rows: 80px minmax(0, 1fr);
   grid-template-areas:
     'header header'
-    'main sidebar'
-    'footer sidebar';
+    'main sidebar';
 }
 
 .header {
@@ -25,12 +20,24 @@
 
 .main {
   grid-area: main;
-  padding: var(--spaces-s);
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'top'
+    'stage'
+    'bottom';
+  padding: var(--spaces-s) var(--spaces-s) 0 var(--spaces-s);
   gap: var(--spaces-s);
-  // TODO this is to compensate for some errors in
-  overflow: hidden;
+}
+
+.stage {
+  grid-area: stage;
+  display: flex;
+  gap: var(--spaces-s);
+}
+
+.hostPanel {
+  grid-area: bottom;
 }
 
 .sidebar {
@@ -38,35 +45,33 @@
   background-color: var(--colors-grey-900);
 }
 
-.footer {
-  grid-area: footer;
-  height: 84px;
-}
-
-.collapsiblePanel {
-  background-color: var(--colors-grey-800);
+.banners {
+  grid-area: top;
   display: flex;
   flex-direction: column;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  padding-left: 28px;
-  padding-right: 28px;
-  border-radius: var(--borderRadius);
-  position: fixed;
-  bottom: 0;
-  left: 16px;
-  // 32px represents the margin of black either side
-  width: calc(100vw - var(--sidebar-width) - 32px);
-  border-top-right-radius: 8x;
-  border-top-left-radius: 8x;
-  z-index: 1;
+  gap: var(--spaces-xs);
+}
+
+.banner {
+  background-color: var(--colors-grey-800);
+  border-radius: 8px;
 }
 
 .notLiveBanner {
-  background-color: var(--colors-grey-800);
   text-align: center;
   padding: 14px;
-  border-radius: 8px;
+}
+
+.screenSharingBanner {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spaces-xs) var(--spaces-xs) var(--spaces-xs) var(--spaces-s);
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: var(--spaces-xs);
+  }
 }
 
 .singleHostPresent {
@@ -94,4 +99,18 @@
 
 .firstToJoin {
   padding-bottom: 8px;
+}
+
+.pendingTakeoverBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.stopScreenShareModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spaces-s);
+  padding: var(--spaces-l);
 }

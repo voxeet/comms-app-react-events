@@ -20,7 +20,7 @@
   "coHost": "Co-host {id}",
   "conference": "Conference: {alias}",
   "conferenceJoin": "Conference Join",
-  "conferenceLeft": "You left the meeting",
+  "conferenceLeft": "You left the event",
   "confirm": "Confirm",
   "connectionError": "Connection error...",
   "copy": "Copy",

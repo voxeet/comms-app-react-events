@@ -6,8 +6,6 @@ import { SideDrawerContentTypes } from '@context/SideDrawerContext';
 import { MediaButton, useAudio, useConference, useParticipants } from '@dolbyio/comms-uikit-react';
 import { useActiveParticipants } from '@hooks/useActiveParticipants';
 import useDrawer from '@hooks/useDrawer';
-import { useRealTimeStreaming } from '@hooks/useRealTimeStreaming';
-import getProxyUrl from '@src/utils/getProxyUrl';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -20,10 +18,14 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
   const { activeParticipants } = useActiveParticipants();
   const { conference } = useConference();
   const { participants } = useParticipants();
-  const { mixerParticipant, isLive } = useRealTimeStreaming(getProxyUrl());
   const [mediaStream, setMediaStream] = useState<MediaStream>();
   const [disableVideo, setDisableVideo] = useState(false);
   const intl = useIntl();
+
+  // The mixer participant sometimes joins as a 'mixer_mix' or 'user'.
+  // Instead of checking for both user types, we just check that the participant's type is not a 'listener'.
+  const mixerParticipant = participants.find((p) => p.type !== 'listener');
+  const isLive = !!mixerParticipant;
 
   useEffect(() => {
     setMediaStream(mixerParticipant?.streams[0]);

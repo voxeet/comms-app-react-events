@@ -147,7 +147,7 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
 
   if (isLoading) {
     return (
-      <Overlay opacity={1}>
+      <Overlay opacity={1} color="black">
         <Spinner textContent={intl.formatMessage({ id: 'joiningEvent' })} />
       </Overlay>
     );

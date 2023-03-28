@@ -5,9 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 function getFetchOptions(body: unknown) {
   return {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   };
 }
@@ -15,6 +13,13 @@ function getFetchOptions(body: unknown) {
 export const useRealTimeStreaming = (proxyUrl: string) => {
   const { conference, participants } = useCommsContext();
   const [isLoading, setIsLoading] = useState(false);
+  const { VITE_API_PROXY_URL } = import.meta.env;
+
+  /*
+    This is being done as netlify functions requires flattened url, so has a different url segment here.
+     For all other uses, we expect the proxy api endpoints to be `/event/start` and `/event/stop`
+  */
+  const eventSegment = (VITE_API_PROXY_URL as string).includes('/.netlify/functions') ? '/event_' : '/event/';
 
   const mixerParticipant: Participant | undefined = useMemo(() => {
     return participants.find((p) => p.info.externalId === 'Mixer_rts' || p.info.externalId === 'mixer_mix');
@@ -33,7 +38,7 @@ export const useRealTimeStreaming = (proxyUrl: string) => {
       }
 
       setIsLoading(true);
-      const res = await fetch(`${proxyUrl}/event_start`, getFetchOptions({ conferenceId: conference.id }));
+      const res = await fetch(`${proxyUrl}${eventSegment}start`, getFetchOptions({ conferenceId: conference.id }));
       const body = (await res.json()) as undefined | { viewerUrl: string };
 
       if (!body?.viewerUrl) {
@@ -52,7 +57,7 @@ export const useRealTimeStreaming = (proxyUrl: string) => {
       }
 
       setIsLoading(true);
-      const res = await fetch(`${proxyUrl}/event_stop`, getFetchOptions({ conferenceId: conference.id }));
+      const res = await fetch(`${proxyUrl}${eventSegment}stop`, getFetchOptions({ conferenceId: conference.id }));
 
       if (!res.ok) {
         throw new Error('Could not stop Real-time Streaming');

@@ -19,17 +19,24 @@ const useToken = () => {
     if (accessToken && accessToken.length) {
       return accessToken;
     }
-    const res = await fetch(`${getProxyUrl()}/access_token`, {
-      method: 'POST',
-    });
-
-    if (!res.data.access_token) {
+    try {
+      const res = await fetch(`${getProxyUrl()}/client-access-token`, {
+        method: 'GET',
+      });
+      if (!res.data.access_token) {
+        setError(
+          `There was an error connecting to the proxy server at "${getProxyUrl()}" - check the server there is running and that it has a route for "${getProxyUrl()}/client-access-token"`,
+        );
+      }
+      setError(undefined);
+      return res.data.access_token;
+    } catch (e) {
       setError(
-        `There was an error connecting to the proxy server at "${getProxyUrl()}" - check the server there is running and that it has a route for "${getProxyUrl()}/access_token"`,
+        `There was an error connecting to the proxy server at "${getProxyUrl()}" - check the server there is running and that it has a route for "${getProxyUrl()}/client-access-token"`,
       );
+
+      return null;
     }
-    setError(undefined);
-    return res.data.access_token;
   };
 
   useEffect(() => {

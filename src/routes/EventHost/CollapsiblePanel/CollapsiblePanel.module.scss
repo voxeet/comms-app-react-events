@@ -18,6 +18,12 @@ $contentHeight: 325px;
   padding: var(--spaces-s) 28px;
   display: flex;
   justify-content: space-between;
+  background: none;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .headerText {

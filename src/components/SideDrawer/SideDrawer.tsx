@@ -70,13 +70,17 @@ export const SideDrawer = ({
         style={{ backgroundColor: getColor(background, 'grey.800') }}
       >
         <Space fw fh className={styles.container}>
-          {isVisible && content}
-          <SideDrawerBottomBar
-            contentType={contentType}
-            onExitConfirm={onExitConfirm}
-            onSettingsClick={onSettingsClick}
-            onParticipantsClick={onParticipantsClick}
-          />
+          {isVisible && (
+            <>
+              {content}
+              <SideDrawerBottomBar
+                contentType={contentType}
+                onExitConfirm={onExitConfirm}
+                onSettingsClick={onSettingsClick}
+                onParticipantsClick={onParticipantsClick}
+              />
+            </>
+          )}
         </Space>
       </Space>
     ),

@@ -2,11 +2,7 @@
 
 ## Overview
 
-[Placeholder, needs a copy edit from Jessica]
-
 This project demonstrates what an events experience is like, built using React.
-
-[Placeholder, will be replaced by screenshot from Gallery]
 
 | Intended use   | Features                                | Tech stack            |
 | -------------- | --------------------------------------- | --------------------- |

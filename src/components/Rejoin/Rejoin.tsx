@@ -59,7 +59,7 @@ export const Rejoin = () => {
 
   return (
     <Space mt="m">
-      <Overlay visible={isLoading} opacity={1}>
+      <Overlay visible={isLoading} opacity={1} color="black">
         <Spinner textContent={intl.formatMessage({ id: 'joiningEvent' })} />
       </Overlay>
       <RejoinConferenceButton

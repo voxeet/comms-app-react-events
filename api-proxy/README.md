@@ -31,24 +31,10 @@ You can obtain your app key and secret to run this app from the [Dolby.io dashbo
 yarn dev
 ```
 
-4. Observe the traffic on your terminal window. A sample log snippet is presented here.
+4. Observe the traffic on your terminal window, looking for the line
 
 ```bash
-[0] 2:28:03 pm - Found 0 errors. Watching for file changes.
-[1] Debugger listening on ws://127.0.0.1:9229/ee1f05df-66b8-44c9-b99c-e4952c0d7641
-[1] For help, see: https://nodejs.org/en/docs/inspector
-[1] Debugger listening on ws://127.0.0.1:9229/13a22631-75dd-4bb1-85ee-37f1a168cbb9
-[1] For help, see: https://nodejs.org/en/docs/inspector
 [1] Listening at http://localhost:4000/
-[1] [POST] 200 - https://api.dolby.io/v1/auth/token
-[1] [POST] 200 - https://comms.api.dolby.io/v2/conferences/mix/your-conference-id/rtmp/start
-[1] [POST] 200 - https://api.dolby.io/v1/auth/token
-[1] [POST] 200 - https://comms.api.dolby.io/v2/conferences/mix/your-conference-id/rtmp/stop
 ```
-
-You should observe two things once your proxy service has started -
-
-- An open Websocket connection (i.e. port 9229) that receives notifications from the Dolby.io backend.
-- A listener on the port number configured in your env (i.e. 4000, as specified by default in the `.env.example` file) that communicates with your front end application.
 
 You will still need to start your application (port 3000 by default) that will communicate with this API proxy service.

@@ -17,4 +17,8 @@ html {
   align-items: center;
   height: 100%;
   flex-direction: column;
+  background-color: var(--colors-background);
+  color: var(--colors-white);
+  font-size: x-large;
+  padding: var(--spaces-xxxl);
 }

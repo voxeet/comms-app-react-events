@@ -47,8 +47,8 @@ To setup your Dolby.io account, go to the [Dolby.io dashboard](https://dashboard
 
 You will need to generate a key and secret pair to run this app. Follow the steps to obtain a token.
 
-1. Go to the _Dashboard_, and click `add new app` if you do not have an existing app. ![dashboard](documentation/assets/Dashboard.png)
-2. To enable events streaming, your app should be opted into the open beta program. You can find this at the bottom of the `Communications APIs` sidebar navigation. ![dashboard](documentation/assets/open-beta.png)
+1. Go to the _Dashboard_, and click `add new app` if you do not have an existing app. ![dashboard](./documentation/Dashboard.png)
+2. To enable events streaming, your app should be opted into the open beta program. You can find this at the bottom of the `Communications APIs` sidebar navigation when you click on your app. ![dashboard](./documentation/open-beta.png)
 
 ## How to run the Events app
 
@@ -66,7 +66,7 @@ yarn
 
 ### Proxy Server code
 
-Please follow the guide in the [api-proxy read me](./proxy/README.md) to get your proxy server up and running. This is required for the events app to function.
+Please follow the guide in the [api-proxy read me](./api-proxy/README.md) to get your proxy server up and running. This is required for the events app to function.
 
 #### Start the app
 

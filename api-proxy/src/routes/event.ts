@@ -53,7 +53,7 @@ export const communications = {
   streaming: {
     startRts: async (token: string, conferenceId: string) => {
       const url = `${commsBaseUrl}/v3/conferences/mix/${conferenceId}/rts/start`;
-      const res = await fetch(url, options(token, { data: { layoutUrl: 'default' } }));
+      const res = await fetch(url, options(token, { layoutUrl: 'default' }));
 
       if (res.status !== 200) {
         // TODO return error
@@ -69,7 +69,7 @@ export const communications = {
   },
 };
 
-router.post('/event_start', async ({ body }, res) => {
+router.post('/event/start', async ({ body }, res) => {
   const { conferenceId } = body;
   if (!conferenceId) {
     return res.status(400).json({ error: 'Missing necessary parameters' });
@@ -85,7 +85,7 @@ router.post('/event_start', async ({ body }, res) => {
   }
 });
 
-router.post('/event_stop', async ({ body }, res) => {
+router.post('/event/stop', async ({ body }, res) => {
   const { conferenceId } = body;
 
   if (!conferenceId) {

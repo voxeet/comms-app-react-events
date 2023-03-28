@@ -23,6 +23,14 @@ if (!KEY || !SECRET) {
 
 const app = express();
 
+const fallback = express.Router();
+
+fallback.all('*', async (req, res) => {
+  console.log('request attempted to bad endpoint');
+  console.log(req.method, req.url);
+  return res.status(404);
+});
+
 // eslint-disable-next-line new-cap
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,6 +39,8 @@ app.use(bodyParser.json());
 app.use(auth);
 app.use(comm);
 app.use(event);
+
+app.use(fallback);
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

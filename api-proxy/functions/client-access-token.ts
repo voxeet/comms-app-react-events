@@ -15,7 +15,7 @@ const handler: Handler = async () => {
         'Content-Type': 'application/json; charset=utf-8',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ data: token }),
+      body: JSON.stringify(token),
     };
   } catch (e) {
     return {

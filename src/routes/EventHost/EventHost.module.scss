@@ -14,10 +14,6 @@
   background-color: var(--colors-grey-900);
 }
 
-.flex {
-  display: flex;
-}
-
 .main {
   grid-area: main;
   display: grid;
@@ -32,8 +28,15 @@
 
 .stage {
   grid-area: stage;
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, auto);
   gap: var(--spaces-s);
+
+  .left {
+    position: relative;
+  }
 }
 
 .hostPanel {
@@ -74,33 +77,6 @@
   }
 }
 
-.singleHostPresent {
-  display: flex;
-  flex-direction: row;
-  gap: 6px;
-  flex-grow: 1;
-}
-
-.shareLinksContainer {
-  background-color: var(--colors-grey-800);
-  border-radius: var(--borderRadius);
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  width: 440px;
-}
-
-.shareLinksTop {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding-bottom: var(--spaces-m);
-}
-
-.firstToJoin {
-  padding-bottom: 8px;
-}
-
 .pendingTakeoverBar {
   position: absolute;
   left: 50%;
@@ -113,4 +89,35 @@
   align-items: center;
   gap: var(--spaces-s);
   padding: var(--spaces-l);
+}
+
+.stageControls {
+  position: absolute;
+  background: linear-gradient(180deg, #14141aff 0%, #14141a00 100%);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: 'status controls .';
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
+
+  .screenShareStatus {
+    grid-area: status;
+    display: flex;
+    align-items: center;
+    gap: var(--spaces-xs);
+  }
+
+  .controls {
+    grid-area: controls;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.visible {
+  opacity: 1;
 }

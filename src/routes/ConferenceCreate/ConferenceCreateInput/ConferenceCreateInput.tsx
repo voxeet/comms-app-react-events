@@ -1,7 +1,6 @@
 import Text from '@components/Text';
 import { Input, ValidationType, Button, Space, useTheme } from '@dolbyio/comms-uikit-react';
 import useConferenceCreate from '@hooks/useConferenceCreate';
-import { useEnter } from '@hooks/useEnter';
 import { CreateStep } from '@src/types/routes';
 import { isValid } from '@src/utils/validation';
 import { useMemo, useRef, useState, ChangeEventHandler } from 'react';
@@ -98,7 +97,7 @@ export const ConferenceCreateInput = ({
   const [value, setValue] = useState(type === 'meeting' ? meetingName : username);
   const [searchParams] = useSearchParams();
   const intl = useIntl();
-  const { isMobile, isMobileSmall, isDesktop, isTablet } = useTheme();
+  const { isMobile, isMobileSmall, isTablet } = useTheme();
   const settings = translationKeys[type];
 
   const myRef = useRef<HTMLDivElement | null>(null);
@@ -127,10 +126,6 @@ export const ConferenceCreateInput = ({
     }
   };
 
-  useEnter(() => {
-    validateInput(value, next);
-  }, value);
-
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target;
     if (value.length >= 3) validateInput(value);
@@ -150,7 +145,7 @@ export const ConferenceCreateInput = ({
     }
 
     return padding;
-  }, [isMobileSmall, isMobile, isDesktop, isTablet]);
+  }, [isSmartphone, isTablet]);
 
   return (
     <Space fh fw className={styles.wrapper}>

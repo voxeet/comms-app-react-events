@@ -6,5 +6,7 @@ export const usePageRefresh = (cleanup: (e: BeforeUnloadEvent) => void, deps?: D
     return () => {
       window.removeEventListener('beforeunload', cleanup);
     };
+    // This function is very hard to setup correctly for this and should probably be rethought
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 };

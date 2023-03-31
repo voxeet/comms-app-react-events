@@ -33,7 +33,19 @@ const useSDKErrorHandler = (
       showErrorNotification(intl.formatMessage({ id: 'invalidToken' }));
       cleanupCallback?.();
     }
-  }, [sdkErrors]);
+  }, [
+    cleanupCallback,
+    closeSession,
+    intl,
+    isSessionOpened,
+    openSession,
+    participant,
+    removeSdkErrors,
+    sdkErrors,
+    sessionCallback,
+    showErrorNotification,
+    showWarningNotification,
+  ]);
 };
 
 export default useSDKErrorHandler;

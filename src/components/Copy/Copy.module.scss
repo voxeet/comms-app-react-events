@@ -4,3 +4,8 @@
   background-color: var(--colors-grey-600);
   border-radius: var(--borderRadius);
 }
+
+.link {
+  overflow: scroll;
+  white-space: nowrap;
+}

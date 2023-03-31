@@ -48,6 +48,8 @@ const DeviceSetup = () => {
   useEffect(() => {
     checkCameraPermission();
     checkMicrophonePermission();
+    // This is an on component mount hook
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

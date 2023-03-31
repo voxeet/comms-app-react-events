@@ -19,7 +19,7 @@ export const useActiveParticipants = () => {
     };
 
     return subscribe({ type: 'Conference.ActiveParticipants', conferenceAlias: alias }, handler);
-  }, [alias]);
+  }, [alias, subscribe]);
 
   return { activeParticipants };
 };

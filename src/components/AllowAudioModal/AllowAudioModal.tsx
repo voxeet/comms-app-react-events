@@ -17,34 +17,35 @@ const AllowAudioModal = ({ testID = 'AllowAudioModal' }: AllowAudioModalProps) =
   const { getColor } = useTheme();
   const { playBlockedAudio, blockedAudioState, markBlockedAudioEnabled } = useAudio();
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   useEffect(() => {
     (() => {
       setTimeout(() => {
         if (blockedAudioState === BlockedAudioStateType.ACTIVATED) {
-          openModal();
+          setIsModalOpen(true);
         } else {
-          closeModal();
+          setIsModalOpen(false);
         }
       }, 2000);
     })();
+    // I am farily confident that this is the state we want, but am not 100%
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAllowAudio = async () => {
     await playBlockedAudio();
     markBlockedAudioEnabled();
-    closeModal();
+    setIsModalOpen(false);
   };
 
   return (
-    <Modal testID={testID} isVisible={isModalOpen} close={closeModal} closeButton>
+    <Modal
+      testID={testID}
+      isVisible={isModalOpen}
+      close={() => {
+        setIsModalOpen(false);
+      }}
+      closeButton
+    >
       <ModalContentBase
         buttons={[
           {

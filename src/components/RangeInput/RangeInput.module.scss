@@ -1,3 +1,8 @@
+:root {
+  --primary: --colors-purple-400;
+  --neutral: --colors-grey-300;
+}
+
 @mixin thumb {
   pointer-events: auto;
   height: 20px;

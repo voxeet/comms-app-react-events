@@ -33,15 +33,17 @@ As you browse through the source code and documents, you might come across some 
 - **A host** is a participant with additional permissions to manage the conference and other participants.
 - **A viewer** is a participant who can only receive video and audio stream from the conference.
 - **A mixer app** is a web app based on the Dolby.io communications APIs that composes multiple streams of videos into a single stream and passes that on to any RTMP or webRTC based consumer. You can customise the participant layout positions using the Mixer config file. Refer to this [blog](https://dolby.io/blog/creating-a-custom-mixer-layout-for-streaming-a-conference/) for more details.
-- A **proxy-app-server** is an intermediary API server that communicates with the Dolby.io Communications Platform in order to provide functionality such as RTS/RTMP/HLS streaming or consuming web-hook data. You can see our sample implementation [here](./proxy).
+- A **proxy-app-server** is an intermediary API server that communicates with the Dolby.io Communications Platform in order to provide functionality such as RTS/RTMP/HLS streaming or consuming web-hook data. You can see our sample implementation [here](./api-proxy).
 
 ### How to get a Dolby.io account
 
-To setup your Dolby.io account, go to the [Dolby.io dashboard](https://dashboard.dolby.io) and complete the form. After confirming your email address, you will be logged in.
+To setup your Dolby.io account, go to the [Dolby.io dashboard](https://dolby.io) and register for an account. After confirming your email address, you will be logged in.
+
+> If you did not receive a verification email, check your Spam or Junk email folders.
 
 #### Setting up your [dolby.io](https://dashboard.dolby.io) app
 
-You will need to generate a key and secret pair to run this app. Follow the steps to obtain a token.
+To set up your app for events, you will need to:
 
 1. Go to the _Dashboard_, and click `add new app` if you do not have an existing app. ![dashboard](./documentation/Dashboard.png)
 2. To enable events streaming, your app should be opted into the open beta program. You can find this at the bottom of the `Communications APIs` sidebar navigation when you click on your app. ![dashboard](./documentation/open-beta.png)
@@ -66,7 +68,7 @@ Please follow the guide in the [api-proxy read me](./api-proxy/README.md) to get
 
 #### Start the app
 
-Execute the following command to run the application locally in a terminal window inside this directory
+Execute the following command to run the application locally in a terminal window inside the root directory.
 
 > You will need a second terminal instance along with the one that runs your web proxy code.
 

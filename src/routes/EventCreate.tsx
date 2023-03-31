@@ -6,6 +6,7 @@ import useConferenceCleanup from '@src/hooks/useConferenceCleanup';
 import useConferenceCreate from '@src/hooks/useConferenceCreate';
 import useSDKErrorHandler from '@src/hooks/useSDKErrorsHandler';
 import { CreateStep } from '@src/types/routes';
+import { makeUnique } from '@src/utils/misc';
 import cx from 'classnames';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -24,11 +25,13 @@ const StartStreamForm = ({
   setName,
   conferenceName,
   setConferenceName,
+  setUniqueConferenceName,
 }: {
   name: string;
   setName: (value: string) => void;
   conferenceName: string;
   setConferenceName: (value: string) => void;
+  setUniqueConferenceName: (value: string) => void;
 }) => {
   const { validation: userValidation, validateInput: validateUserInput } = useCreateConferenceValidation('user');
   const { validation: meetingValidation, validateInput: validateMeetingInput } =
@@ -56,6 +59,7 @@ const StartStreamForm = ({
           const { valid: conferenceValid } = validateMeetingInput(conferenceName);
 
           if (name.length && conferenceName.length && userValid && conferenceValid) {
+            setUniqueConferenceName(makeUnique(conferenceName));
             setStep(CreateStep.deviceSetup);
           }
         }}
@@ -109,6 +113,7 @@ const StartStreamForm = ({
 const CreateEvent = () => {
   const [name, setName] = useState('');
   const [conferenceName, setConferenceName] = useState('');
+  const [uniqueConferenceName, setUniqueConferenceName] = useState('');
   const { step } = useConferenceCreate();
 
   const { stopLocalVideo } = useCamera();
@@ -128,13 +133,14 @@ const CreateEvent = () => {
     >
       <ConferenceCreateHeader event />
       {step === CreateStep.deviceSetup ? (
-        <DeviceSetup username={name} meetingName={conferenceName} />
+        <DeviceSetup username={name} meetingName={uniqueConferenceName} />
       ) : (
         <StartStreamForm
           name={name}
           setName={setName}
           conferenceName={conferenceName}
           setConferenceName={setConferenceName}
+          setUniqueConferenceName={setUniqueConferenceName}
         />
       )}
       <ConferenceCreateFooter />

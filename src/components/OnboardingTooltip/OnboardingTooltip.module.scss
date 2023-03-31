@@ -1,0 +1,81 @@
+$arrowWidth: 0.7;
+
+.wrapper {
+  display: flex;
+  height: min-content;
+
+  &.top {
+    flex-direction: column-reverse;
+  }
+
+  &.bottom {
+    flex-direction: column;
+  }
+
+  &.left {
+    flex-direction: row-reverse;
+  }
+
+  &.right {
+    flex-direction: row;
+  }
+}
+
+.arrow {
+  background-color: var(--colors-white);
+  width: 24px;
+  height: 24px;
+  border-top-right-radius: 6px;
+
+  &.top {
+    transform: translate(-50%, -50%) scale($arrowWidth, 1) rotate(135deg);
+  }
+
+  &.bottom {
+    transform: translate(-50%, 50%) scale($arrowWidth, 1) rotate(-45deg);
+  }
+
+  &.left {
+    transform: translate(-50%, -50%) scale(1, $arrowWidth) rotate(45deg);
+  }
+
+  &.right {
+    transform: translate(50%, -50%) scale(1, $arrowWidth) rotate(-135deg);
+  }
+}
+
+.tooltip {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colors-white);
+  border-radius: 12px;
+  width: 320px;
+  padding: 0 var(--spaces-s);
+}
+
+.close {
+  padding-top: var(--spaces-xxs);
+  margin-left: auto;
+}
+
+.body {
+  padding: var(--spaces-s) 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spaces-s);
+
+  .cta {
+    display: flex;
+    gap: var(--spaces-s);
+
+    .secondaryAction {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}

@@ -11,7 +11,7 @@ export const footerSizes = {
 };
 
 export const ConferenceCreateFooter = () => {
-  const { isMobile, isMobileSmall, isTablet, isDesktop, isLandscape } = useTheme();
+  const { isMobile, isMobileSmall, isTablet, isDesktop } = useTheme();
 
   const footerHeight = useMemo(() => {
     let value = footerSizes.medium;
@@ -23,7 +23,7 @@ export const ConferenceCreateFooter = () => {
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isTablet, isDesktop, isLandscape]);
+  }, [isMobile, isMobileSmall, isTablet, isDesktop]);
 
   return (
     <Space fw testID="ConferenceCreateFooter" className={styles.container} style={{ height: footerHeight }}>

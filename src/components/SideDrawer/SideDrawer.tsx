@@ -45,7 +45,7 @@ export const SideDrawer = ({
       return 'grey.800';
     }
     return 'grey.800';
-  }, [contentType, isDrawerOpen]);
+  }, [contentType]);
 
   const content = useMemo(() => {
     if (contentType === SideDrawerContentTypes.DEVICE_SETUP) {
@@ -58,39 +58,30 @@ export const SideDrawer = ({
       return <ConferenceDeviceSettings />;
     }
     return null;
-  }, [contentType, isDrawerOpen]);
-
-  const drawerWrapper = useMemo(
-    () => (
-      <Space
-        fw={isSmartphone}
-        fh
-        testID="Drawer"
-        className={cx(styles.drawer, isSmartphone && styles.mobile, isVisible && styles.active)}
-        style={{ backgroundColor: getColor(background, 'grey.800') }}
-      >
-        <Space fw fh className={styles.container}>
-          {isVisible && (
-            <>
-              {content}
-              <SideDrawerBottomBar
-                contentType={contentType}
-                onExitConfirm={onExitConfirm}
-                onSettingsClick={onSettingsClick}
-                onParticipantsClick={onParticipantsClick}
-              />
-            </>
-          )}
-        </Space>
-      </Space>
-    ),
-    [isSmartphone, isDrawerOpen, contentType],
-  );
+  }, [activeParticipants, contentType]);
 
   return (
     <>
       <Overlay visible={isVisible} onClick={closeDrawer} opacity={0.5} color="black" />
-      {(!isSafariTablet || isVisible) && drawerWrapper}
+      {(!isSafariTablet || isVisible) && (
+        <Space
+          fw={isSmartphone}
+          fh
+          testID="Drawer"
+          className={cx(styles.drawer, isSmartphone && styles.mobile, isVisible && styles.active)}
+          style={{ backgroundColor: getColor(background, 'grey.800') }}
+        >
+          <Space fw fh className={styles.container}>
+            {isVisible && content}
+            <SideDrawerBottomBar
+              contentType={contentType}
+              onExitConfirm={onExitConfirm}
+              onSettingsClick={onSettingsClick}
+              onParticipantsClick={onParticipantsClick}
+            />
+          </Space>
+        </Space>
+      )}
     </>
   );
 };

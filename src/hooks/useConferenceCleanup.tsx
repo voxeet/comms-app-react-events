@@ -28,6 +28,8 @@ const useConferenceCleanup = () => {
         }
       }
     })();
+    // This is a cleanup for unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

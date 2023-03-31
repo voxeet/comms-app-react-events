@@ -46,7 +46,7 @@ import { useActiveParticipants } from '@src/hooks/useActiveParticipants';
 import useDrawer from '@src/hooks/useDrawer';
 import useSDKErrorHandler from '@src/hooks/useSDKErrorsHandler';
 import getProxyUrl from '@src/utils/getProxyUrl';
-import { debounce } from '@src/utils/misc';
+import { useDebounce } from '@src/utils/misc';
 import { getHostPath, getRejoinPath, getViewerPath } from '@src/utils/route';
 import cx from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
@@ -107,7 +107,7 @@ const ConfView = () => {
       stopScreenShare();
     }
     leaveConference();
-  }, [isLocalUserRecordingOwner, isLocalUserPresentationOwner]);
+  }, [isLocalUserRecordingOwner, isLocalUserPresentationOwner, leaveConference, stopRecording, stopScreenShare]);
 
   useSDKErrorHandler(sessionAndTokenErrorHandler, sessionAndTokenErrorHandler);
 
@@ -129,7 +129,7 @@ const ConfView = () => {
         }
       }
     })();
-  }, [localCamera]);
+  }, [isVideo, localCamera, selectCamera]);
 
   useEffect(() => {
     (async () => {
@@ -141,7 +141,7 @@ const ConfView = () => {
         }
       }
     })();
-  }, [localMicrophone, isAudio]);
+  }, [localMicrophone, isAudio, selectMicrophone]);
 
   useEffect(() => {
     (async () => {
@@ -153,7 +153,7 @@ const ConfView = () => {
         }
       }
     })();
-  }, [localSpeakers]);
+  }, [localSpeakers, selectSpeaker]);
 
   useEffect(() => {
     if (message?.type === ScreenShareTakeoverMessages.REQUEST && sender?.info.name && isLocalUserPresentationOwner) {
@@ -166,6 +166,9 @@ const ConfView = () => {
       setTakeoverStatus('none');
     }
     clearMessage();
+    // TODO solve perf issue
+    // exhaustive deps here caused a large perf issue
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);
 
   useEffect(() => {
@@ -294,12 +297,9 @@ const ConfView = () => {
     }
   };
 
-  const hideStageControls = useCallback(
-    debounce(() => {
-      setIsStageControlsVisible(false);
-    }, 2000),
-    [],
-  );
+  const hideStageControls = useDebounce(() => {
+    setIsStageControlsVisible(false);
+  }, 2000);
 
   const showStageControls = () => {
     setIsStageControlsVisible(true);

@@ -14,7 +14,8 @@ const commsBaseUrl = 'https://comms.api.dolby.io';
 
 // this is mirroring the type from @dolbyio/dolbyio-rest-apis-client
 export const authentication = {
-  getApiAccessToken: async (key: string, secret: string, timeout?: number): Promise<string> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getApiAccessToken: async (key: string, secret: string, _timeout?: number): Promise<string> => {
     const encodedParams = new URLSearchParams();
     encodedParams.set('grant_type', 'client_credentials');
 
@@ -52,18 +53,12 @@ const options = (token: string, body: Record<string, unknown>) => ({
 export const communications = {
   streaming: {
     startRts: async (token: string, conferenceId: string) => {
-      const url = `${commsBaseUrl}/v3/conferences/mix/${conferenceId}/rts/start`;
+      const url = encodeURI(`${commsBaseUrl}/v3/conferences/mix/${conferenceId}/rts/start`);
       const res = await fetch(url, options(token, { layoutUrl: 'default' }));
-
-      if (res.status !== 200) {
-        // TODO return error
-        return {};
-      }
-
-      return res.json();
+      return { status: res.status, ...(await res.json()) };
     },
     stopRts: async (token: string, conferenceId: string) => {
-      const url = `${commsBaseUrl}/v3/conferences/mix/${conferenceId}/rts/stop`;
+      const url = encodeURI(`${commsBaseUrl}/v3/conferences/mix/${conferenceId}/rts/stop`);
       return fetch(url, options(token, {}));
     },
   },
@@ -76,8 +71,11 @@ router.post('/event/start', async ({ body }, res) => {
   }
   try {
     const token = await authentication.getApiAccessToken(KEY, SECRET, 3600);
-    const { viewerUrl } = await communications.streaming.startRts(token, conferenceId);
-    return res.status(200).json({ viewerUrl });
+    const { viewerUrl, status, ...rest } = await communications.streaming.startRts(token, conferenceId);
+    if (viewerUrl) {
+      return res.status(200).json({ viewerUrl });
+    }
+    return res.status(status).json(rest);
   } catch (e) {
     console.log(e);
     const { status, message } = processErrorStatus(e);

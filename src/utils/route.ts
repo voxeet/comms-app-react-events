@@ -6,11 +6,11 @@ export function getEventCreatePath() {
 }
 
 export function getHostPath(eventId: string) {
-  return generatePath(Routes.Host, { id: eventId });
+  return generatePath(Routes.Host, { id: encodeURIComponent(eventId) });
 }
 
 export function getViewerPath(eventId: string) {
-  return generatePath(Routes.Viewer, { id: eventId });
+  return generatePath(Routes.Viewer, { id: encodeURIComponent(eventId) });
 }
 
 export function getRejoinPath(eventId: string) {

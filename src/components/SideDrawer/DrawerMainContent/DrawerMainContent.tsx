@@ -1,6 +1,6 @@
 import { useTheme, Space, ColorKey } from '@dolbyio/comms-uikit-react';
 import cx from 'classnames';
-import { useMemo, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import styles from './DrawerMainContent.module.scss';
 
@@ -11,8 +11,7 @@ type DrawerMainContentProps = {
 
 export const DrawerMainContent = ({ children, scrollbarColor = 'grey.600' }: DrawerMainContentProps) => {
   const { getColor } = useTheme();
-  const drawerContentStyles = useMemo(() => {
-    return `
+  const drawerContentStyles = `
     .drawerContent {
       scrollbar-color: ${getColor(scrollbarColor)};
       scrollbar-width: thin;
@@ -29,7 +28,7 @@ export const DrawerMainContent = ({ children, scrollbarColor = 'grey.600' }: Dra
       background-color: ${getColor('transparent')};
     }
   `;
-  }, [scrollbarColor]);
+
   return (
     <>
       <style>{drawerContentStyles}</style>

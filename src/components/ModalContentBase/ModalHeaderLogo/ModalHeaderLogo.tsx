@@ -1,5 +1,5 @@
 import { Space, Icon, useTheme, ColorKey, IconComponentName } from '@dolbyio/comms-uikit-react';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import styles from './ModalHeaderLogo.module.scss';
 
@@ -18,35 +18,23 @@ const ModalHeaderLogo = ({
   iconColor = 'white',
   icon,
 }: ModalHeaderLogoProps) => {
-  const { theme, getColorOrGradient, getColor } = useTheme();
+  const { getColorOrGradient, getColor } = useTheme();
 
   const isGradient = useCallback((color: ColorKey | [ColorKey, ColorKey]) => {
     return Array.isArray(color);
   }, []);
 
-  const handlePrimaryBackgroundColor = useMemo(() => {
-    let color = getColorOrGradient(primaryBackgroundColor);
+  const baseColor = getColorOrGradient(primaryBackgroundColor);
 
-    if (!isGradient(primaryBackgroundColor)) {
-      color = getColor(primaryBackgroundColor as string);
-    } else {
-      color = `linear-gradient(315deg, ${color[0]} 0%, ${color[1]} 100%)`;
-    }
+  const handlePrimaryBackgroundColor = !isGradient(primaryBackgroundColor)
+    ? getColor(primaryBackgroundColor as string)
+    : `linear-gradient(315deg, ${baseColor[0]} 0%, ${baseColor[1]} 100%)`;
 
-    return color as string;
-  }, [primaryBackgroundColor, theme]);
+  const baseBackgroundColor = getColorOrGradient(secondaryBackgroundColor);
 
-  const handleSecondaryBackgroundColor = useMemo(() => {
-    let color = getColorOrGradient(secondaryBackgroundColor);
-
-    if (!isGradient(secondaryBackgroundColor)) {
-      color = getColor(secondaryBackgroundColor as string);
-    } else {
-      color = `linear-gradient(99.69deg, ${color[0]} -10.66%, ${color[1]} 114.64%)`;
-    }
-
-    return color as string;
-  }, [secondaryBackgroundColor, theme]);
+  const handleSecondaryBackgroundColor = !isGradient(secondaryBackgroundColor)
+    ? getColor(secondaryBackgroundColor as string)
+    : `linear-gradient(99.69deg, ${baseBackgroundColor[0]} -10.66%, ${baseBackgroundColor[1]} 114.64%)`;
 
   return (
     <Space testID="ModalHeaderLogo" className={styles.wrapper}>

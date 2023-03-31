@@ -24,7 +24,7 @@ export const EventView = () => {
 
       setScreen('view');
     },
-    [id],
+    [createConference, id, joinConference, openSession],
   );
 
   return (

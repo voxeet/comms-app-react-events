@@ -1,5 +1,5 @@
-import { Space, Tooltip, useTheme } from '@dolbyio/comms-uikit-react';
-import { useEffect, useLayoutEffect, useState, useRef } from 'react';
+import { Space, Tooltip } from '@dolbyio/comms-uikit-react';
+import { useEffect, useState, useRef } from 'react';
 import './RangeInput.module.scss';
 
 type RangeInputProps = {
@@ -12,18 +12,8 @@ type RangeInputProps = {
 
 export const RangeInput = ({ minValue, maxValue, step = 1, value, callback }: RangeInputProps) => {
   const [sliderValue, setSliderValue] = useState(value || minValue);
-  const { getColor } = useTheme();
   const ref = useRef<HTMLInputElement | null>(null);
   const [stepRange, setStep] = useState(minValue);
-
-  useEffect(() => {
-    callback(sliderValue);
-  }, [sliderValue]);
-
-  useLayoutEffect(() => {
-    document.documentElement.style.setProperty('--primary', getColor('purple.400'));
-    document.documentElement.style.setProperty('--neutral', getColor('grey.300'));
-  }, []);
 
   useEffect(() => {
     if (ref.current) {
@@ -47,7 +37,13 @@ export const RangeInput = ({ minValue, maxValue, step = 1, value, callback }: Ra
         }}
       >
         <input
-          onChange={(event) => setSliderValue(+event.target.value)}
+          onChange={(event) => {
+            const newVal = parseInt(event.target.value, 10);
+            if (sliderValue !== newVal) {
+              setSliderValue(newVal);
+              callback(newVal);
+            }
+          }}
           type="range"
           id="range"
           min={minValue}

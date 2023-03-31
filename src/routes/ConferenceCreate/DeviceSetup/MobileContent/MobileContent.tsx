@@ -54,7 +54,7 @@ const MobileContent = ({
   onError,
   joinOptions,
 }: MobileContentProps) => {
-  const { isLandscape, isMobile, isMobileSmall, isTablet } = useTheme();
+  const { isMobile, isMobileSmall, isTablet } = useTheme();
 
   const meetingNameTopMargin = useMemo(() => {
     let value: SpaceValues = 'xxl';
@@ -64,7 +64,7 @@ const MobileContent = ({
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isLandscape]);
+  }, [isMobile, isMobileSmall]);
 
   const videoTopMargin = useMemo(() => {
     let value: SpaceValues = 'm';
@@ -74,7 +74,7 @@ const MobileContent = ({
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isLandscape]);
+  }, [isMobile, isMobileSmall]);
 
   const buttonsSectionTopMargin = useMemo(() => {
     let value: SpaceValues = 'm';
@@ -84,7 +84,7 @@ const MobileContent = ({
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isLandscape]);
+  }, [isMobile, isMobileSmall]);
 
   const joinButtonTopMargin = useMemo(() => {
     let value: SpaceValues = 'xl';
@@ -94,7 +94,7 @@ const MobileContent = ({
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isLandscape]);
+  }, [isMobile, isMobileSmall]);
 
   const permissionsWarningTopMargin = useMemo(() => {
     let value: SpaceValues = 'm';
@@ -104,7 +104,7 @@ const MobileContent = ({
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isLandscape]);
+  }, [isMobile, isMobileSmall]);
 
   const joinButtonWidth = useMemo(() => {
     let value: string | number = joinButtonWidthValue.medium;
@@ -114,7 +114,7 @@ const MobileContent = ({
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isTablet, isLandscape]);
+  }, [isMobile, isMobileSmall]);
 
   const permissionsWarningWidth = useMemo(() => {
     let value: string | number = permissionsWarningWidthValue.medium;
@@ -124,7 +124,7 @@ const MobileContent = ({
     }
 
     return value;
-  }, [isMobile, isMobileSmall, isTablet, isLandscape]);
+  }, [isMobile, isMobileSmall]);
 
   const titleTextType = useMemo(() => {
     let type: TextProps['type'] = 'h4';

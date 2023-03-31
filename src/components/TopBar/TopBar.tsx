@@ -12,6 +12,7 @@ import {
   useTheme,
 } from '@dolbyio/comms-uikit-react';
 import { useViewerCount } from '@src/hooks/useActiveParticipants';
+import { getFriendlyName } from '@src/utils/misc';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -22,13 +23,17 @@ import Timer from '../Timer';
 export const TopBar = ({
   isLive,
   isLoading,
+  isMinimal = false,
   onStreamClick,
   joinType,
+  eventName,
 }: {
   isLive: boolean;
   isLoading?: boolean;
+  isMinimal?: boolean;
   onStreamClick?: () => void;
   joinType: 'viewer' | 'host';
+  eventName?: string;
 }) => {
   const { getColor } = useTheme();
   const intl = useIntl();
@@ -86,7 +91,7 @@ export const TopBar = ({
           testID="Logo"
         />
         <Text type="h6" color="white" testID="MeetingName">
-          {conference?.alias}
+          {getFriendlyName(eventName ?? conference?.alias ?? '')}
         </Text>
         {!isLive && joinType === 'viewer' ? null : (
           <Pill
@@ -140,10 +145,14 @@ export const TopBar = ({
             </>
           )}
         </Space>
-        <Space testID="Timer">
-          <Timer alwaysShowHour type="h4Thin" runTimer={isLive} />
-        </Space>
-        <Icon testID="StreamingStatus" name="circle" size="xxxs" color={isLive ? 'red.500' : 'grey.300'} />
+        {!isMinimal && (
+          <>
+            <Space testID="Timer">
+              <Timer alwaysShowHour type="h4Thin" runTimer={isLive} />
+            </Space>
+            <Icon testID="StreamingStatus" name="circle" size="xxxs" color={isLive ? 'red.500' : 'grey.300'} />
+          </>
+        )}
         {joinType === 'host' && onStreamClick && (
           <Button
             testID={`${buttonText.replaceAll(/\s/g, '')}Button`}

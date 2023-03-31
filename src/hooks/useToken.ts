@@ -1,21 +1,17 @@
 import getProxyUrl from '@src/utils/getProxyUrl';
-import { useMemo, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import fetch from '../utils/fetch';
 
 const useToken = () => {
-  const location = useLocation();
   const accessToken = useMemo(() => {
-    return encodeURIComponent(
-      new URLSearchParams(window.location.search).get('token') || import.meta.env.VITE_CLIENT_ACCESS_TOKEN || '',
-    );
-  }, [location]);
+    return encodeURIComponent(import.meta.env.VITE_CLIENT_ACCESS_TOKEN || '');
+  }, []);
 
   const [YOUR_TOKEN, setToken] = useState<string | null>(null);
   const [error, setError] = useState<string | undefined>();
 
-  const getToken = async () => {
+  const getToken = useCallback(async () => {
     if (accessToken && accessToken.length) {
       return accessToken;
     }
@@ -37,13 +33,13 @@ const useToken = () => {
 
       return null;
     }
-  };
+  }, [accessToken]);
 
   useEffect(() => {
     (async () => {
       setToken(await getToken());
     })();
-  }, []);
+  }, [getToken]);
 
   return { YOUR_TOKEN, getToken, error };
 };

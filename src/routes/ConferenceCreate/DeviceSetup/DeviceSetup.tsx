@@ -25,6 +25,7 @@ import MobileContent from '@src/routes/ConferenceCreate/DeviceSetup/MobileConten
 import ToggleMicrophoneButton from '@src/routes/ConferenceCreate/DeviceSetup/ToggleMicrophoneButton';
 import ToggleVideoButton from '@src/routes/ConferenceCreate/DeviceSetup/ToggleVideoButton';
 import { CreateStep } from '@src/types/routes';
+import { getFriendlyName } from '@src/utils/misc';
 import { getHostPath, getViewerPath } from '@src/utils/route';
 import { useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -60,14 +61,14 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
     if (sdkErrors['Incorrect participant session']) {
       setIsLoading(false);
     }
-  }, []);
+  }, [sdkErrors]);
 
   useEffect(() => {
     if (videoError) {
       showErrorNotification(intl.formatMessage({ id: 'videoRetrying' }));
       removeError();
     }
-  }, [videoError]);
+  }, [intl, removeError, showErrorNotification, videoError]);
 
   const checkPermissions = () => {
     (async () => {
@@ -102,6 +103,8 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
   useEffect(() => {
     checkPermissions();
     sessionSetup();
+    // This should only be run once on component mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -110,7 +113,7 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
         setLocalCamera(await getDefaultLocalCamera());
       })();
     }
-  }, [localCamera, isCameraPermission]);
+  }, [localCamera, isCameraPermission, setLocalCamera, getDefaultLocalCamera]);
 
   const allPermissionsOff = !isMicrophonePermission && !isCameraPermission;
   const allMediaOff = !isAudio && !isVideo;
@@ -134,16 +137,16 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
     setIsLoading(false);
   };
 
-  const joinParams: JoinParams = {
-    isMicrophonePermission,
-    isCameraPermission,
-    isAudio,
-    isVideo,
-  };
-
   const joinOptions = useMemo(() => {
+    const joinParams: JoinParams = {
+      isMicrophonePermission,
+      isCameraPermission,
+      isAudio,
+      isVideo,
+    };
+
     return setJoinOptions(joinParams);
-  }, [isMicrophonePermission, isCameraPermission, isAudio, isVideo]);
+  }, [isAudio, isCameraPermission, isMicrophonePermission, isVideo]);
 
   if (isLoading) {
     return (
@@ -210,7 +213,7 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
         </Space>
         <Space className={styles.columnRight}>
           <Text testID="MeetingName" type="H1" color="white" align="center">
-            {meetingName}
+            {getFriendlyName(meetingName)}
           </Text>
           <JoinConferenceButton
             testID="DeviceSetupJoinButton"

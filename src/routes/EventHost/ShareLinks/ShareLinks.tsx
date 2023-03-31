@@ -1,6 +1,7 @@
 import { InviteParticipants } from '@components/InviteParticipants';
 import Text from '@components/Text';
 import { IconButton } from '@dolbyio/comms-uikit-react';
+import { getFriendlyName } from '@src/utils/misc';
 import { getHostPath, getViewerPath } from '@src/utils/route';
 
 import styles from './ShareLinks.module.scss';
@@ -30,7 +31,7 @@ export const ShareLinks = ({
       </div>
       <Text testID="EventTitleLabel">Event Title ID</Text>
       <Text testID="MeetingName" style={{ color: 'var(--colors-grey-400)' }}>
-        {meetingName}
+        {getFriendlyName(meetingName ?? '')}
       </Text>
       <InviteParticipants
         coHostLink={window.location.origin + getHostPath(meetingName || '')}

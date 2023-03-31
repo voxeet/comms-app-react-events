@@ -31,7 +31,7 @@ export const ConferenceCreate = () => {
       stopLocalVideo();
       setLocalCamera(null);
     }
-  }, [step]);
+  }, [setLocalCamera, step, stopLocalVideo]);
 
   const [isInputFocused, setIsInputFocused] = useState(false);
 

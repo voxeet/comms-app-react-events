@@ -1,9 +1,11 @@
 .container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--spaces-s);
 }
 
 .copy {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--spaces-xxs);
 }

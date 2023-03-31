@@ -18,7 +18,6 @@ import {
 import useDrawer from '@hooks/useDrawer';
 import { useLiveStreaming } from '@hooks/useLiveStreaming';
 import cx from 'classnames';
-import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 
 import styles from './BottomDrawer.module.scss';
@@ -55,12 +54,12 @@ const BottomDrawer = ({ close }: BottomDrawerProps) => {
     <StopLiveStreamingModal isOpen={isVisible} closeModal={cancel} accept={accept} />
   );
 
-  const recordingSuccessAction = useCallback((message?: string) => {
+  const recordingSuccessAction = (message?: string) => {
     close();
     if (message) {
       showSuccessNotification(message);
     }
-  }, []);
+  };
 
   const areThreeButtonsInRow = (isTablet || isMobile) && !isLiveStreamingAvailable;
 

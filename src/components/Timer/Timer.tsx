@@ -78,7 +78,7 @@ const Timer = ({ startTime, alwaysShowHour = false, runTimer = true, ...rest }: 
     }
 
     return value;
-  }, [hours]);
+  }, [alwaysShowHour, hours]);
 
   return (
     <>

@@ -30,26 +30,27 @@ export const Rejoin = () => {
   const { getMicrophonePermission } = useMicrophone();
   const { isAudio } = useAudio();
 
-  const checkPermissions = async () => {
-    const microphonePermission = await getMicrophonePermission();
-    const cameraPermission = await getCameraPermission();
-
-    setIsMicrophonePermission(microphonePermission);
-    setIsCameraPermission(cameraPermission);
-  };
-
   useEffect(() => {
+    const checkPermissions = async () => {
+      const microphonePermission = await getMicrophonePermission();
+      const cameraPermission = await getCameraPermission();
+
+      setIsMicrophonePermission(microphonePermission);
+      setIsCameraPermission(cameraPermission);
+    };
     checkPermissions();
+    // This is a component mount check
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const joinParams: JoinParams = {
-    isMicrophonePermission,
-    isCameraPermission,
-    isAudio,
-    isVideo,
-  };
-
   const joinOptions = useMemo(() => {
+    const joinParams: JoinParams = {
+      isMicrophonePermission,
+      isCameraPermission,
+      isAudio,
+      isVideo,
+    };
+
     return setJoinOptions(joinParams);
   }, [isMicrophonePermission, isCameraPermission, isAudio, isVideo]);
 

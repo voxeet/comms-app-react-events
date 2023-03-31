@@ -1,6 +1,6 @@
 import { useErrors, ErrorCodes } from '@dolbyio/comms-uikit-react';
 import { Routes as RoutesType } from '@src/types/routes';
-import { Navigate, Route, Routes, useSearchParams } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import CreateEvent from './EventCreate';
 import HostView from './EventHost/EventHost';
@@ -9,9 +9,7 @@ import { EventView } from './EventView/EventView';
 import RefreshPage from './ExpiredToken';
 
 const Redirect = ({ pathname }: { pathname: RoutesType }) => {
-  const [searchParams] = useSearchParams();
-
-  return <Navigate replace to={{ pathname, search: `id=${searchParams.get('id')}` || undefined }} />;
+  return <Navigate replace to={{ pathname }} />;
 };
 
 const Router = () => {

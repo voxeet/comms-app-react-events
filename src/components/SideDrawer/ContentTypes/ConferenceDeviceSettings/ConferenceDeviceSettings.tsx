@@ -62,6 +62,8 @@ const Settings = () => {
   useEffect(() => {
     checkMicrophonePermission();
     checkCameraPermission();
+    // This is an on component mount hook
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setParticipantsVideoTiles = (value: number) => {

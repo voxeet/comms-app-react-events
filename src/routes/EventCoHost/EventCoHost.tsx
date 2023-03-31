@@ -23,7 +23,7 @@ export const EventCoHost = () => {
       setName(name);
       setStep(CreateStep.deviceSetup);
     },
-    [conferenceName],
+    [setStep],
   );
 
   return (

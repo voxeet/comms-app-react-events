@@ -36,7 +36,9 @@ export const Copy = ({ label, copyValue, tooltipText, successText, testID }: Cop
       <Tooltip testID="Tooltip" position="top" text={copied ? successText : tooltipText}>
         <IconButton testID="CopyButton" icon="copy" size="m" backgroundColor="transparent" onClick={copy} />
       </Tooltip>
-      <Text testID="Link">{label ?? copyValue}</Text>
+      <div className={styles.link}>
+        <Text testID="Link">{label ?? copyValue}</Text>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useCommsContext } from '@dolbyio/comms-uikit-react';
+import { env } from '@src/utils/env';
 import { Participant } from '@voxeet/voxeet-web-sdk/types/models/Participant';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -13,7 +14,7 @@ function getFetchOptions(body: unknown) {
 export const useRealTimeStreaming = (proxyUrl: string) => {
   const { conference, participants } = useCommsContext();
   const [isLoading, setIsLoading] = useState(false);
-  const { VITE_API_PROXY_URL } = import.meta.env;
+  const VITE_API_PROXY_URL = env('VITE_API_PROXY_URL');
 
   /*
     This is being done as netlify functions requires flattened url, so has a different url segment here.
@@ -39,9 +40,10 @@ export const useRealTimeStreaming = (proxyUrl: string) => {
 
       setIsLoading(true);
       const res = await fetch(`${proxyUrl}${eventSegment}start`, getFetchOptions({ conferenceId: conference.id }));
-      const body = (await res.json()) as undefined | { viewerUrl: string };
 
-      if (!body?.viewerUrl) {
+      if (res.status !== 200) {
+        console.error('Error from API when starting live streaming:');
+        console.error({ status: res.status, ...(await res.json()) });
         throw new Error('Could not start Real-time Streaming');
       }
     } catch (error) {

@@ -1,50 +1,40 @@
-$arrowWidth: 0.7;
+$arrowWidth: 0.6;
 
 .wrapper {
-  display: flex;
-  height: min-content;
+  position: relative;
 
-  &.top {
-    flex-direction: column-reverse;
-  }
-
-  &.bottom {
-    flex-direction: column;
-  }
-
-  &.left {
-    flex-direction: row-reverse;
-  }
-
-  &.right {
-    flex-direction: row;
+  &.arrowVisible {
+    width: 24px;
+    height: 24px;
   }
 }
 
 .arrow {
+  position: absolute;
+  inset: 0;
   background-color: var(--colors-white);
-  width: 24px;
-  height: 24px;
-  border-top-right-radius: 6px;
+  border-top-left-radius: var(--borderRadius);
+  transform-origin: 0 0;
 
   &.top {
-    transform: translate(-50%, -50%) scale($arrowWidth, 1) rotate(135deg);
+    transform: scaleX($arrowWidth) rotate(-135deg);
   }
 
   &.bottom {
-    transform: translate(-50%, 50%) scale($arrowWidth, 1) rotate(-45deg);
+    transform: scaleX($arrowWidth) rotate(45deg);
   }
 
   &.left {
-    transform: translate(-50%, -50%) scale(1, $arrowWidth) rotate(45deg);
+    transform: scaleY($arrowWidth) rotate(135deg);
   }
 
   &.right {
-    transform: translate(50%, -50%) scale(1, $arrowWidth) rotate(-135deg);
+    transform: scaleY($arrowWidth) rotate(-45deg);
   }
 }
 
 .tooltip {
+  position: absolute;
   display: flex;
   flex-direction: column;
   background-color: var(--colors-white);
@@ -56,10 +46,6 @@ $arrowWidth: 0.7;
 .close {
   padding-top: var(--spaces-xxs);
   margin-left: auto;
-}
-
-.body {
-  padding: var(--spaces-s) 0;
 }
 
 .footer {

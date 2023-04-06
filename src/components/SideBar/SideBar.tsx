@@ -10,10 +10,10 @@ const SideBarButton = (
     testID?: string;
   },
 ) => {
-  const { tooltipText, ...rest } = props;
+  const { tooltipText, testID, ...rest } = props;
   return (
     <Tooltip text={tooltipText}>
-      <IconButton variant="circle" size="s" iconSize="m" {...rest} />
+      <IconButton testID={testID} variant="circle" size="s" iconSize="m" {...rest} />
     </Tooltip>
   );
 };
@@ -39,6 +39,7 @@ const SideBar = ({
     <div className={styles.sideBar}>
       {onParticipantsClick && (
         <SideBarButton
+          id="participantsButton"
           testID="ParticipantsButton"
           badge={numParticipants}
           badgeColor="grey.400"
@@ -51,6 +52,7 @@ const SideBar = ({
       {onInviteClick && (
         <div>
           <SideBarButton
+            id="inviteButton"
             testID="InviteButton"
             tooltipText={intl.formatMessage({ id: 'inviteLabel' })}
             icon="invite"
@@ -61,6 +63,7 @@ const SideBar = ({
       {onSettingsClick && (
         <div className={styles.aboveDivider}>
           <SideBarButton
+            id="settingsButton"
             testID="SettingsButton"
             tooltipText={intl.formatMessage({ id: 'settings' })}
             icon="settings"
@@ -71,6 +74,7 @@ const SideBar = ({
       {onExitConfirm && (
         <div className={styles.exit}>
           <SideBarButton
+            id="leaveEventButton"
             testID="LeaveEventButton"
             tooltipText={intl.formatMessage({ id: 'exit' })}
             icon="exit"

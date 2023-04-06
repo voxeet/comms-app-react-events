@@ -6,7 +6,7 @@ Use this proxy server sample code to connect your Dolby.io communications API ba
 
 **note** This guide is written with [Yarn](https://yarnpkg.com) in mind.
 
-> All instructions listed here assume that this `api-proxy` directory is the root.
+> These instructions are all performed inside the `api-proxy` directory. As a pre-requesite, open up a terminal window in the `api-proxy` directory.
 
 1. Run the following command to install all necessary dependencies:
 
@@ -14,7 +14,7 @@ Use this proxy server sample code to connect your Dolby.io communications API ba
 yarn
 ```
 
-1. Rename the [.env.example](.env.example) file to `.env`, then add your `KEY` and `SECRET`.
+1. Rename the [api-proxy/.env.example](.env.example) file to `api-proxy/.env`, then add your `KEY` and `SECRET`.
 
 ### How to obtain App Key and Secret
 
@@ -38,3 +38,5 @@ yarn dev
 ```
 
 You will still need to start your application (port 3000 by default) that will communicate with this API proxy service.
+
+5. You can now head back to the events app [ReadMe file](../README.md) to continue building and running the app.

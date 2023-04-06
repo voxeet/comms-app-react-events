@@ -6,7 +6,7 @@ import {
   useMessage,
 } from '@dolbyio/comms-uikit-react';
 import { useLiveStreaming } from '@hooks/useLiveStreaming';
-import { getRejoinPath } from '@src/utils/route';
+import { getHostExitPath } from '@src/utils/route';
 import { useIntl } from 'react-intl';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ const LeaveConference = () => {
   const { isLocalUserLiveStreamingOwner, isLiveStreamingModeActive, streamHandler } = useLiveStreaming();
 
   const onSuccess = () => {
-    navigate(getRejoinPath(params.id || ''), { replace: true });
+    navigate(getHostExitPath(params.id || ''), { replace: true });
   };
   /*
     We need this pre-action to clean up ex Live streaming with proper participants message handling

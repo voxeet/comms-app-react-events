@@ -2,7 +2,7 @@ export enum Routes {
   EventCreate = '/',
   Host = `/:id`,
   Viewer = '/:id/watch',
-  HostRejoin = '/:id/rejoin',
+  HostExit = '/:id/exit',
 }
 
 export enum CreateStep {

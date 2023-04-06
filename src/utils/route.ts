@@ -13,6 +13,6 @@ export function getViewerPath(eventId: string) {
   return generatePath(Routes.Viewer, { id: encodeURIComponent(eventId) });
 }
 
-export function getRejoinPath(eventId: string) {
-  return generatePath(Routes.HostRejoin, { id: eventId });
+export function getHostExitPath(eventId: string) {
+  return generatePath(Routes.HostExit, { id: encodeURIComponent(eventId) });
 }

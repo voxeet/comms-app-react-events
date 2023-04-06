@@ -6,6 +6,9 @@ import { SideDrawerContentTypes } from '@context/SideDrawerContext';
 import { MediaButton, useAudio, useConference, useParticipants } from '@dolbyio/comms-uikit-react';
 import { useActiveParticipants } from '@hooks/useActiveParticipants';
 import useDrawer from '@hooks/useDrawer';
+import { Onboarding } from '@src/components/Onboarding/Onboarding';
+import { viewerLiveSteps } from '@src/onboarding/viewer_live';
+import { viewerPreLiveSteps } from '@src/onboarding/viewer_pre_live';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -20,6 +23,8 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
   const { participants } = useParticipants();
   const [mediaStream, setMediaStream] = useState<MediaStream>();
   const [disableVideo, setDisableVideo] = useState(false);
+  const [showPreLiveOnboarding, setShowPreLiveOnboarding] = useState(true);
+  const [showLiveOnboarding, setShowLiveOnboarding] = useState(false);
   const intl = useIntl();
 
   // The mixer participant sometimes joins as a 'mixer_mix' or 'user'.
@@ -29,6 +34,9 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
 
   useEffect(() => {
     setMediaStream(mixerParticipant?.streams[0]);
+
+    setShowPreLiveOnboarding(!mixerParticipant);
+    setShowLiveOnboarding(!!mixerParticipant);
   }, [mixerParticipant]);
 
   const openParticipantsPanel = () => {
@@ -48,7 +56,7 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
             <div className={styles.video}>
               <Video disableVideo={disableVideo} mediaStream={mediaStream} />
             </div>
-            <div className={styles.buttons}>
+            <div id="viewerControls" className={styles.buttons}>
               <MediaButton
                 testID="ToggleVideoButton"
                 activeIcon="camera"
@@ -89,8 +97,19 @@ export const View = ({ onExitConfirm }: { onExitConfirm: () => void }) => {
           onExitConfirm={onExitConfirm}
         />
       </div>
-
       <SideDrawer activeParticipants={activeParticipants} />
+
+      {showLiveOnboarding && (
+        <Onboarding name="liveViewer" steps={viewerLiveSteps} onComplete={() => setShowLiveOnboarding(false)} />
+      )}
+
+      {showPreLiveOnboarding && (
+        <Onboarding
+          name="preLiveViewer"
+          steps={viewerPreLiveSteps}
+          onComplete={() => setShowPreLiveOnboarding(false)}
+        />
+      )}
     </div>
   );
 };

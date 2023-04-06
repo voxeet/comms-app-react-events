@@ -11,7 +11,7 @@ import styles from './DemoEnded.module.scss';
 const URL_SALES =
   'https://dolby.io/contact/?utm_medium=referral&utm_campaign=landing-page-contact-sales&utm_source=eventapp';
 const URL_GITHUB =
-  'https://www.github.com/dolbyio-samples/comms-app-events-react//?utm_medium=referral&utm_campaign=event-app-gh&utm_source=eventapp';
+  'https://www.github.com/dolbyio-samples/comms-app-react-events?utm_medium=referral&utm_campaign=event-app-gh&utm_source=eventapp';
 const URL_SIGN_UP =
   'https://dashboard.dolby.io/?utm_medium=referral&utm_campaign=landing-page-sign-up&utm_source=eventapp';
 

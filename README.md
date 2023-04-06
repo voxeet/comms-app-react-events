@@ -5,7 +5,7 @@
 This project demonstrates what an events experience is like, built using React.
 
 <p align="center">
-    <img src="./documentation/assets/banner.jpg" width="175px" />
+    <img src="./documentation/banner.jpg" width="175px" />
 </p>
 
 | Intended use   | Features                                | Tech stack            |
@@ -58,7 +58,7 @@ To setup your Dolby.io account, go to the [Dolby.io dashboard](https://dolby.io)
 
 To set up your app for events, you will need to:
 
-1. Go to the _Dashboard_, and click `add new app` if you do not have an existing app. ![dashboard](./documentation/Dashboard-events.png)
+1. Go to the _Dashboard_, and click `add new app` if you do not have an existing app. ![dashboard](./documentation/dashboard-events.png)
 2. To enable events streaming, your app should be opted into the open beta program. You can find this at the bottom of the `Communications APIs` sidebar navigation when you click on your app. ![dashboard](./documentation/open-beta.png)
 
 ## How to run the Events app

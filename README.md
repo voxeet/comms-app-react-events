@@ -4,6 +4,10 @@
 
 This project demonstrates what an events experience is like, built using React.
 
+<p align="center">
+    <img src="./documentation/assets/banner.jpg" width="175px" />
+</p>
+
 | Intended use   | Features                                | Tech stack            |
 | -------------- | --------------------------------------- | --------------------- |
 | Events         | create, start, stream and stop an event | Typescript/Javascript |
@@ -14,6 +18,15 @@ This project demonstrates what an events experience is like, built using React.
 |                | Event Recording                         |                       |
 |                | Participant List                        |                       |
 
+## Requirements and supported platforms
+
+The app currently supports
+
+- Chrome 100+
+- Edge 100+
+- Safari 111+
+- Firefox 16.3+
+
 ## Getting Started
 
 The following steps will quickly get you started testing the Dolby.io Communications APIs capabilities.
@@ -22,9 +35,9 @@ The following steps will quickly get you started testing the Dolby.io Communicat
 
 To get started building this app you will need a Dolby.io account. You will also need the following -
 
-- NPM v8.11
-- Yarn v 1.22.19
-- Node v18.0.0
+- [NPM v8.11 or higher](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Yarn v1.22.19](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
+- [Node v18.0.0 or higher](https://nodejs.org/en/download)
 
 ### Basic terminology
 
@@ -41,11 +54,11 @@ To setup your Dolby.io account, go to the [Dolby.io dashboard](https://dolby.io)
 
 > If you did not receive a verification email, check your Spam or Junk email folders.
 
-#### Setting up your [dolby.io](https://dashboard.dolby.io) app
+#### Setting up your [Dolby.io](https://dashboard.dolby.io) app
 
 To set up your app for events, you will need to:
 
-1. Go to the _Dashboard_, and click `add new app` if you do not have an existing app. ![dashboard](./documentation/Dashboard.png)
+1. Go to the _Dashboard_, and click `add new app` if you do not have an existing app. ![dashboard](./documentation/Dashboard-events.png)
 2. To enable events streaming, your app should be opted into the open beta program. You can find this at the bottom of the `Communications APIs` sidebar navigation when you click on your app. ![dashboard](./documentation/open-beta.png)
 
 ## How to run the Events app
@@ -54,13 +67,26 @@ Run the following steps after cloning the repository to run the application loca
 
 ### Install dependencies
 
-**note** : This guide is written with [Yarn](https://yarnpkg.com/) in mind.
+**note** : This guide is written with [Yarn](https://yarnpkg.com/) in mind. We have not validated this project with other package managers.
 
 Open a terminal window in the root directory of your project folder. Install the project's dependencies using the following command.
 
 ```bash
 yarn
 ```
+
+### Repo structure
+
+The code in this repository is organised in the following way
+
+- The `src/` directory contains all the front-end code for the events app. Within this directory
+  - `hooks/` contains wrapper functions around our SDK for re-usable functionality.
+  - `components/` contains UI components that encapsulate and provide functionality.
+  - `utils/` provides some generic helper functions.
+  - `context/` contains the React Context for the side drawer and the main component window.
+- The `api-proxy/` contains the code for the proxy server.
+
+This project is built with the [Comms UI Kit for react](https://github.com/dolbyio/comms-uikit-react) library for simplicity and re-use of standard Communications API based components.
 
 ### Proxy Server code
 
@@ -80,21 +106,10 @@ yarn dev
 
 After the appropriate message appears in the terminal window, open <http://localhost:3000> in the browser. The application will launch at this address.
 
-> If the app isn't loading, make sure you've started the proxy server
+> If the app isn't loading, make sure you've started the proxy server.
 
 > If you want to start your proxy server on a port other than :4000, you can make a .env file and set the proxy server location using the `VITE_API_PROXY_URL` variable.
 
-## Known issues and limitations
-
-For a list of all known issues, checkout the Issues tab above.
-
-## Requirements and supported platforms
-
-Video Conference Call App supports four main browsers
-
-- Chrome 100+
-- Edge 100+
-
 ## More resources
 
-Looking for more sample apps and projects? Head to the [Project Gallery](https://docs.dolby.io/communications-apis/page/gallery).
+Looking for more sample apps and projects? Head to the [Dolby.io Project Gallery](https://docs.dolby.io/communications-apis/page/gallery).

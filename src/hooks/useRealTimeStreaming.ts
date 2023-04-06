@@ -20,7 +20,7 @@ export const useRealTimeStreaming = (proxyUrl: string) => {
     This is being done as netlify functions requires flattened url, so has a different url segment here.
      For all other uses, we expect the proxy api endpoints to be `/event/start` and `/event/stop`
   */
-  const eventSegment = (VITE_API_PROXY_URL as string).includes('/.netlify/functions') ? '/event_' : '/event/';
+  const eventSegment = VITE_API_PROXY_URL.includes('/.netlify/functions') ? '/event_' : '/event/';
 
   const mixerParticipant: Participant | undefined = useMemo(() => {
     return participants.find((p) => p.info.externalId === 'Mixer_rts' || p.info.externalId === 'mixer_mix');

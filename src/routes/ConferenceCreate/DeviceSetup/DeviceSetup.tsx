@@ -20,7 +20,9 @@ import {
 } from '@dolbyio/comms-uikit-react';
 import useConferenceCreate from '@hooks/useConferenceCreate';
 import { InviteParticipants } from '@src/components/InviteParticipants';
+import { Onboarding } from '@src/components/Onboarding/Onboarding';
 import { SideDrawer } from '@src/components/SideDrawer';
+import { hostSetupSteps } from '@src/onboarding/host_setup';
 import MobileContent from '@src/routes/ConferenceCreate/DeviceSetup/MobileContent';
 import ToggleMicrophoneButton from '@src/routes/ConferenceCreate/DeviceSetup/ToggleMicrophoneButton';
 import ToggleVideoButton from '@src/routes/ConferenceCreate/DeviceSetup/ToggleVideoButton';
@@ -50,6 +52,7 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
   const [isCameraPermission, setIsCameraPermission] = useState<boolean>(false);
   const [isMicrophonePermission, setIsMicrophonePermission] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(true);
   const intl = useIntl();
   const { openSession, participant, closeSession, isSessionOpened } = useSession();
   const { showErrorNotification } = useNotifications();
@@ -225,13 +228,16 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
             onSuccess={onSuccess}
             style={{ width: 400 }}
             onError={onJoinError}
+            autoFocus
           >
             <Text testID="JoinbuttonText" type="buttonDefault" labelKey="gotoWaitingroom" />
           </JoinConferenceButton>
-          <InviteParticipants
-            coHostLink={window.location.origin + getHostPath(meetingName)}
-            viewerLink={window.location.origin + getViewerPath(meetingName)}
-          />
+          <div id="inviteParticipants">
+            <InviteParticipants
+              coHostLink={window.location.origin + getHostPath(meetingName)}
+              viewerLink={window.location.origin + getViewerPath(meetingName)}
+            />
+          </div>
           {!isAllPermission && (
             <Text
               testID="PermissionsWarning"
@@ -244,6 +250,7 @@ export const DeviceSetup = ({ meetingName, username }: { meetingName: string; us
         </Space>
       </Space>
       <SideDrawer />
+      {showOnboarding && <Onboarding name="setup" steps={hostSetupSteps} onComplete={() => setShowOnboarding(false)} />}
     </Space>
   );
 };

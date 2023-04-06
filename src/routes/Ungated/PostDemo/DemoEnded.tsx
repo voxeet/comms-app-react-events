@@ -11,11 +11,11 @@ import styles from './DemoEnded.module.scss';
 const URL_SALES =
   'https://dolby.io/contact/?utm_medium=referral&utm_campaign=landing-page-contact-sales&utm_source=eventapp';
 const URL_GITHUB =
-  'www.github.com/dolbyio-samples/comms-app-events-react//?utm_medium=referral&utm_campaign=event-app-gh&utm_source=eventapp';
+  'https://www.github.com/dolbyio-samples/comms-app-events-react//?utm_medium=referral&utm_campaign=event-app-gh&utm_source=eventapp';
 const URL_SIGN_UP =
   'https://dashboard.dolby.io/?utm_medium=referral&utm_campaign=landing-page-sign-up&utm_source=eventapp';
 
-const DemoEnded = () => {
+export const DemoEnded = () => {
   const { id } = useParams();
 
   useConferenceCleanup();
@@ -33,7 +33,7 @@ const DemoEnded = () => {
   };
 
   return (
-    <Layout testID="ConferenceLeftRoute">
+    <Layout testID="ConferenceLeftRoute" backgroundColor="black">
       <TopBar joinType="viewer" isLive={false} isMinimal eventName={id} />
       <Space fw className={styles.wrapper}>
         <Space className={cx(styles.textContainer)}>
@@ -61,5 +61,3 @@ const DemoEnded = () => {
     </Layout>
   );
 };
-
-export default DemoEnded;

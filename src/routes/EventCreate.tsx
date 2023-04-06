@@ -1,10 +1,12 @@
 import { Button, Input, Layout, Space, useCamera } from '@dolbyio/comms-uikit-react';
 import ConferenceCreateFooter from '@src/components/ConferenceCreateFooter';
 import ConferenceCreateHeader from '@src/components/ConferenceCreateHeader';
+import { Onboarding } from '@src/components/Onboarding/Onboarding';
 import Text from '@src/components/Text';
 import useConferenceCleanup from '@src/hooks/useConferenceCleanup';
 import useConferenceCreate from '@src/hooks/useConferenceCreate';
 import useSDKErrorHandler from '@src/hooks/useSDKErrorsHandler';
+import { hostJoinSteps } from '@src/onboarding/host_join';
 import { CreateStep } from '@src/types/routes';
 import { makeUnique } from '@src/utils/misc';
 import cx from 'classnames';
@@ -115,6 +117,7 @@ const CreateEvent = () => {
   const [conferenceName, setConferenceName] = useState('');
   const [uniqueConferenceName, setUniqueConferenceName] = useState('');
   const { step } = useConferenceCreate();
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   const { stopLocalVideo } = useCamera();
   useConferenceCleanup();
@@ -144,6 +147,9 @@ const CreateEvent = () => {
         />
       )}
       <ConferenceCreateFooter />
+      {showOnboarding && (
+        <Onboarding name="hostJoin" steps={hostJoinSteps} onComplete={() => setShowOnboarding(false)} />
+      )}
     </Layout>
   );
 };

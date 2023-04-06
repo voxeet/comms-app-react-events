@@ -14,7 +14,7 @@ export const ShareLinks = ({
   onCloseClick: () => void;
 }) => {
   return (
-    <div data-tesid="FirstParticipantConatiner" className={styles.shareLinksContainer}>
+    <div data-testid="FirstParticipantConatiner" className={styles.shareLinksContainer}>
       <div className={styles.flex}>
         <div className={styles.shareLinksTop}>
           <Text

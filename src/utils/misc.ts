@@ -40,14 +40,28 @@ export function makeUnique(value: string): string {
   return `${value}|${Date.now().toString()}`;
 }
 
-export function getFriendlyName(str: string): string {
+export function splitMeetingAlias(str: string): [string] | [string, string] {
   const regex = /(.+)\|(.+)/;
   const match = str.match(regex);
   if (match) {
-    const [, left] = match;
-    return left;
+    const [, name, timestamp] = match;
+    return [name, timestamp];
   }
-  return str;
+  return [str];
+}
+
+export function getConferenceCreated(str: string): number | undefined {
+  const [, timestamp = ''] = splitMeetingAlias(str);
+
+  const parsed = parseInt(timestamp, 10);
+
+  return Number.isNaN(parsed) ? undefined : parsed;
+}
+
+export function getFriendlyName(str: string): string {
+  const [name] = splitMeetingAlias(str);
+
+  return name;
 }
 
 export function openInNewTab(url: string) {

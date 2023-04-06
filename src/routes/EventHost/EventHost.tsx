@@ -3,6 +3,7 @@
 // TODO add error handling that isn't console.log
 
 import AllowAudioModal from '@components/AllowAudioModal';
+import { Onboarding } from '@components/Onboarding/Onboarding';
 import PendingTakeoverInfoBar from '@components/PendingTakeoverInfoBar';
 import ScreenSharingPermissionModal from '@components/ScreenSharingPermissionModal/ScreenSharingPermissionModal';
 import {
@@ -45,9 +46,11 @@ import { SideDrawerContentTypes } from '@src/context/SideDrawerContext';
 import { useActiveParticipants } from '@src/hooks/useActiveParticipants';
 import useDrawer from '@src/hooks/useDrawer';
 import useSDKErrorHandler from '@src/hooks/useSDKErrorsHandler';
+import { hostLiveSteps } from '@src/onboarding/host_live';
+import { hostPreLiveSteps } from '@src/onboarding/host_pre_live';
 import getProxyUrl from '@src/utils/getProxyUrl';
 import { useDebounce } from '@src/utils/misc';
-import { getHostPath, getRejoinPath, getViewerPath } from '@src/utils/route';
+import { getHostPath, getHostExitPath, getViewerPath } from '@src/utils/route';
 import cx from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -98,6 +101,8 @@ const ConfView = () => {
   const [screenShareRequests, setScreenShareRequests] = useState<Set<string>>(new Set());
   const [showShareLinks, setShowShareLinks] = useState(true);
   const [isStageControlsVisible, setIsStageControlsVisible] = useState(false);
+  const [showPreLiveOnboarding, setShowPreLiveOnboarding] = useState(true);
+  const [showLiveOnboarding, setShowLiveOnboarding] = useState(false);
 
   const sessionAndTokenErrorHandler = useCallback(async () => {
     if (isLocalUserRecordingOwner) {
@@ -177,6 +182,10 @@ const ConfView = () => {
       setScreenShareRequests(new Set());
     }
   }, [screenSharingStatus]);
+
+  useEffect(() => {
+    setShowLiveOnboarding(isRtsLive);
+  }, [isRtsLive]);
 
   const isPresentationActive =
     screenSharingStatus === ShareStatus.Active || (isLocalUserPresentationOwner && isPresentationModeActive);
@@ -280,9 +289,12 @@ const ConfView = () => {
     if (isLocalUserPresentationOwner && screenSharingStatus === GenericStatus.Active) {
       await stopScreenShare();
     }
+    if (participants.length === 1 && isRtsLive) {
+      await stopRealTimeStreaming();
+    }
 
     await leaveConference();
-    navigate(getRejoinPath(params.id || ''), { replace: true });
+    navigate(getHostExitPath(params.id || ''), { replace: true });
   };
 
   const toggleRts = () => {
@@ -322,9 +334,9 @@ const ConfView = () => {
               )}
             </div>
           )}
-          <div className={styles.stage}>
+          <div className={styles.stage} data-testid="mainView">
             <div className={styles.left} onMouseMove={showStageControls}>
-              {!isPresentationActive && <ParticipantsGrid localText="You" />}
+              {!isPresentationActive && <ParticipantsGrid testID="VideoGridBox" localText="You" />}
               {isPresentationActive && (
                 <ScreenSharingPresentationBox
                   fallbackText={intl.formatMessage({ id: 'screenShareDefaultFallbackText' })}
@@ -334,15 +346,20 @@ const ConfView = () => {
                   }}
                 />
               )}
-              <div className={cx(styles.stageControls, isStageControlsVisible && styles.visible)}>
+              <div
+                className={cx(
+                  styles.stageControls,
+                  (isStageControlsVisible || showPreLiveOnboarding) && styles.visible,
+                )}
+              >
                 {screenSharingStatus === ShareStatus.Active && isLocalUserPresentationOwner && (
                   <div className={styles.screenShareStatus}>
-                    <Icon name="present" size="m" />
-                    <Text>{intl.formatMessage({ id: 'screenSharing' })}</Text>
-                    <Icon name="circle" size="xxxs" color="#00B865" />
+                    <Icon testID="ScreenShareIcon" name="present" size="m" />
+                    <Text testID="ScreenShareLabel">{intl.formatMessage({ id: 'screenSharing' })}</Text>
+                    <Icon testID="ScreenShareStatus" name="circle" size="xxxs" color="#00B865" />
                   </div>
                 )}
-                <div className={styles.controls} onFocus={showStageControls}>
+                <div id="stageControls" className={styles.controls} onFocus={showStageControls}>
                   <MediaDock onScreenShareClick={toggleScreenShare} />
                 </div>
               </div>
@@ -351,7 +368,7 @@ const ConfView = () => {
               <ShareLinks meetingName={params.id} onCloseClick={() => setShowShareLinks(false)} />
             )}
           </div>
-          <div data-testid="CollapsiblePanel" className={styles.hostPanel}>
+          <div id="hostPanel" data-testid="CollapsiblePanel" className={styles.hostPanel}>
             <CollapsiblePanel
               isOpen={isHostPanelOpen}
               isAskForShareVisible={takeoverStatus === 'accepted'}
@@ -412,7 +429,7 @@ const ConfView = () => {
             />
           </Space>
         )}
-        <AllowAudioModal />
+        {!(showPreLiveOnboarding || showLiveOnboarding) && <AllowAudioModal />}
         <Modal
           testID="InviteParticipantsModel"
           isVisible={inviteModalState.open}
@@ -467,10 +484,10 @@ const ConfView = () => {
             <Text testID="Header" type="H2" color="grey.100">
               {intl.formatMessage({ id: 'stopScreenSharing' })}
             </Text>
-            <Text align="center" type="bodyDefault" color="grey.100">
+            <Text testID="Description" align="center" type="bodyDefault" color="grey.100">
               {intl.formatMessage({ id: 'stopScreenSharingModalDesc' })}
             </Text>
-            <Button style={{ height: 32 }} onClick={confirmStopScreenShare}>
+            <Button testID="ConfirmStopSharing" style={{ height: 32 }} onClick={confirmStopScreenShare}>
               <Text type="captionSmallDemiBold">{intl.formatMessage({ id: 'stopSharing' })}</Text>
             </Button>
           </div>
@@ -482,6 +499,12 @@ const ConfView = () => {
           onSettingsClick={openSettingsPanel}
           onExitConfirm={exit}
         />
+        {showPreLiveOnboarding && (
+          <Onboarding name="hostPreLive" steps={hostPreLiveSteps} onComplete={() => setShowPreLiveOnboarding(false)} />
+        )}
+        {showLiveOnboarding && !showPreLiveOnboarding && (
+          <Onboarding name="hostLive" steps={hostLiveSteps} onComplete={() => setShowLiveOnboarding(false)} />
+        )}
 
         {/* Commenting out mobile-only interaction for mvp */}
         {/* {!isDesktop && <ActionBar ref={actionBarRef} />} */}

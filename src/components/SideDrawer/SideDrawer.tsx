@@ -1,4 +1,4 @@
-import { useTheme, Space, Overlay } from '@dolbyio/comms-uikit-react';
+import { useTheme, Space, Overlay, useCommsContext } from '@dolbyio/comms-uikit-react';
 import useDrawer from '@hooks/useDrawer';
 import ConferenceDeviceSettings from '@src/components/SideDrawer/ContentTypes/ConferenceDeviceSettings/ConferenceDeviceSettings';
 import DeviceSetup from '@src/components/SideDrawer/ContentTypes/DeviceSetup/DeviceSetup';
@@ -6,7 +6,7 @@ import Participants from '@src/components/SideDrawer/ContentTypes/Participants/P
 import { SideDrawerContentTypes } from '@src/context/SideDrawerContext';
 import { ActiveParticipants } from '@voxeet/voxeet-web-sdk/types/events/notification';
 import cx from 'classnames';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import SideDrawerBottomBar from '../SideDrawerBottomBar/SideDrawerBottomBar';
 
@@ -29,6 +29,13 @@ export const SideDrawer = ({
 }: SideDrawerProps) => {
   const { getColor, isMobile, isMobileSmall } = useTheme();
   const { isDrawerOpen, contentType, closeDrawer } = useDrawer();
+  const { conferenceStatus } = useCommsContext();
+
+  useEffect(() => {
+    if (conferenceStatus === 'ended') {
+      onExitConfirm?.();
+    }
+  }, [conferenceStatus, onExitConfirm]);
 
   const isSmartphone = isMobile || isMobileSmall;
   const isSafariTablet = isSafariMobile && !isSmartphone;
@@ -72,13 +79,17 @@ export const SideDrawer = ({
           style={{ backgroundColor: getColor(background, 'grey.800') }}
         >
           <Space fw fh className={styles.container}>
-            {isVisible && content}
-            <SideDrawerBottomBar
-              contentType={contentType}
-              onExitConfirm={onExitConfirm}
-              onSettingsClick={onSettingsClick}
-              onParticipantsClick={onParticipantsClick}
-            />
+            {isVisible && (
+              <>
+                {content}
+                <SideDrawerBottomBar
+                  contentType={contentType}
+                  onExitConfirm={onExitConfirm}
+                  onSettingsClick={onSettingsClick}
+                  onParticipantsClick={onParticipantsClick}
+                />
+              </>
+            )}
           </Space>
         </Space>
       )}

@@ -104,7 +104,9 @@ yarn dev
 
 #### Open the app in a browser
 
-After the appropriate message appears in the terminal window, open <http://localhost:3000> in the browser. The application will launch at this address.
+After the appropriate message appears in the terminal window, open <http://localhost:3000> in the browser. The application will launch at this address and will look like the screenshot below.
+
+![built](.documentation/Events-built.png)
 
 > If the app isn't loading, make sure you've started the proxy server.
 

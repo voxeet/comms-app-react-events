@@ -12,3 +12,11 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[template]
+  incoming-hooks = ["dolbyio-events"]
+
+
+[template.environment]
+  KEY = "change me to your dolby.io app key"
+  SECRET = "change me to your dolby.io app secret"

@@ -6,7 +6,7 @@
 
 [functions]
 
-  directory = "../api-proxy/functions"
+  directory = "api-proxy/functions"
 
 [[redirects]]
   from = "/*"

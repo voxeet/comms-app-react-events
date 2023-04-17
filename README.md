@@ -5,7 +5,7 @@
 This project demonstrates what an events experience is like, built using React.
 
 <p align="center">
-    <img src="./documentation/banner.jpg" width="175px" />
+    <img src="./documentation/banner.jpg" />
 </p>
 
 | Intended use   | Features                                | Tech stack            |
@@ -111,5 +111,7 @@ After the appropriate message appears in the terminal window, open <http://local
 > If you want to start your proxy server on a port other than :4000, you can make a .env file and set the proxy server location using the `VITE_API_PROXY_URL` variable.
 
 ## More resources
+
+Want to experience the app without building it? Try our Virtual Events [Demo app](https://events.experience.dolby.io).
 
 Looking for more sample apps and projects? Head to the [Dolby.io Project Gallery](https://docs.dolby.io/communications-apis/page/gallery).

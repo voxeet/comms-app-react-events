@@ -20,3 +20,6 @@
 [template.environment]
   KEY = "change me to your dolby.io app key"
   SECRET = "change me to your dolby.io app secret"
+
+[context.production]
+  environment = { NODE_VERSION = "18" }

@@ -22,4 +22,4 @@
   SECRET = "change me to your dolby.io app secret"
 
 [context.production]
-  environment = { NODE_VERSION = "18" }
+  environment = { NODE_VERSION = "18", AWS_LAMBDA_JS_RUNTIME = "nodejs18.x" }

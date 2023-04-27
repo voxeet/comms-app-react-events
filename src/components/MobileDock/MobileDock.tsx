@@ -1,4 +1,3 @@
-import LeaveConference from '@components/LeaveConference';
 import { SideDrawerContentTypes } from '@context/SideDrawerContext';
 import {
   useConference,
@@ -45,9 +44,6 @@ export const MobileDock = ({ openBottomDrawer, visible = true }: MobileDockProps
       pv={isSmartphone ? 's' : 'm'}
       ph={isSmartphone ? 's' : 'm'}
     >
-      <Space mh="xs">
-        <LeaveConference />
-      </Space>
       <Space mh="xs">
         <LocalToggleAudioButton />
       </Space>

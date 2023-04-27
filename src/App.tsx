@@ -1,15 +1,23 @@
 import { CommsProvider, ThemeProvider, LogProvider, NotificationCenter, LogLevel } from '@dolbyio/comms-uikit-react';
+import PubNub from 'pubnub';
+import { PubNubProvider } from 'pubnub-react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
-import style from './App.module.scss';
+import styles from './App.module.scss';
 import PhoneLandscapeCurtain from './components/PhoneLandscapeCurtain';
 import TranslationProvider from './components/TranslationProvider';
-import { ConferenceCreateProvider } from './context/ConferenceCreateContext';
 import { SideDrawerProvider } from './context/SideDrawerContext';
 import useToken from './hooks/useToken';
 import { Navigator } from './routes/Navigator';
+import { env } from './utils/env';
+
+const pubnub = new PubNub({
+  publishKey: env('VITE_PUBNUB_PUBLISH_KEY'),
+  subscribeKey: env('VITE_PUBNUB_SUBSCRIBE_KEY'),
+  userId: 'events-client',
+});
 
 const App = () => {
   const { YOUR_TOKEN, getToken, error } = useToken();
@@ -17,7 +25,7 @@ const App = () => {
   if (error) {
     return (
       <ThemeProvider>
-        <div className={style.fallbackContainer}>Error : {error}</div>;
+        <div className={styles.fallbackContainer}>Error : {error}</div>;
       </ThemeProvider>
     );
   }
@@ -27,9 +35,9 @@ const App = () => {
   }
 
   return (
-    <LogProvider minLogLevel={LogLevel.warn}>
-      <TranslationProvider>
-        <ConferenceCreateProvider>
+    <PubNubProvider client={pubnub}>
+      <LogProvider minLogLevel={LogLevel.warn}>
+        <TranslationProvider>
           <CommsProvider
             token={YOUR_TOKEN}
             refreshToken={getToken}
@@ -37,7 +45,9 @@ const App = () => {
           >
             <ThemeProvider>
               <SideDrawerProvider>
-                <Navigator />
+                <div className={styles.app}>
+                  <Navigator />
+                </div>
                 {/* Because of the problem with resize / orientation change events , we need to lock android chrome landscape mode* /}
                 {/* for mobile devices */}
                 <PhoneLandscapeCurtain />
@@ -45,9 +55,9 @@ const App = () => {
               </SideDrawerProvider>
             </ThemeProvider>
           </CommsProvider>
-        </ConferenceCreateProvider>
-      </TranslationProvider>
-    </LogProvider>
+        </TranslationProvider>
+      </LogProvider>
+    </PubNubProvider>
   );
 };
 

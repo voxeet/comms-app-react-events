@@ -1,0 +1,38 @@
+.container {
+  display: grid;
+  grid-template-rows: 110px 1fr;
+}
+
+.chat {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--spaces-s);
+  padding: var(--spaces-s);
+  height: 100%;
+  background-color: var(--colors-grey-700);
+  border-radius: var(--borderRadius);
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaces-s);
+  overflow-y: scroll;
+}
+
+.message {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--spaces-xs);
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spaces-xxs);
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

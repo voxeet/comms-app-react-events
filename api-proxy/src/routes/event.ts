@@ -1,13 +1,7 @@
-// import { authentication, communications, streaming } from '@dolbyio/dolbyio-rest-apis-client';
-import express from 'express';
+import { Router } from 'express';
+import fetch from 'node-fetch';
 
-import { env } from '../utils/env';
 import { processErrorStatus } from '../utils/errors';
-
-const router = express.Router();
-
-const KEY = env('KEY');
-const SECRET = env('SECRET');
 
 const baseUrl = 'https://api.dolby.io';
 const commsBaseUrl = 'https://comms.api.dolby.io';
@@ -64,40 +58,44 @@ export const communications = {
   },
 };
 
-router.post('/event/start', async ({ body }, res) => {
-  const { conferenceId } = body;
-  if (!conferenceId) {
-    return res.status(400).json({ error: 'Missing necessary parameters' });
-  }
-  try {
-    const token = await authentication.getApiAccessToken(KEY, SECRET, 3600);
-    const { viewerUrl, status, ...rest } = await communications.streaming.startRts(token, conferenceId);
-    if (viewerUrl) {
-      return res.status(200).json({ viewerUrl });
+export function getEventRoutes(params: { commsKey: string; commsSecret: string }) {
+  const router = Router();
+
+  router.post('/event/start', async ({ body }, res) => {
+    const { conferenceId } = body;
+    if (!conferenceId) {
+      return res.status(400).json({ error: 'Missing necessary parameters' });
     }
-    return res.status(status).json(rest);
-  } catch (e) {
-    console.log(e);
-    const { status, message } = processErrorStatus(e);
-    return res.status(status).send(message);
-  }
-});
+    try {
+      const token = await authentication.getApiAccessToken(params.commsKey, params.commsSecret, 3600);
+      const { viewerUrl, status, ...rest } = await communications.streaming.startRts(token, conferenceId);
+      if (viewerUrl) {
+        return res.status(200).json({ viewerUrl });
+      }
+      return res.status(status).json(rest);
+    } catch (e) {
+      console.log(e);
+      const { status, message } = processErrorStatus(e);
+      return res.status(status).send(message);
+    }
+  });
 
-router.post('/event/stop', async ({ body }, res) => {
-  const { conferenceId } = body;
+  router.post('/event/stop', async ({ body }, res) => {
+    const { conferenceId } = body;
 
-  if (!conferenceId) {
-    return res.status(400).json({ error: 'Missing conference id param.' });
-  }
-  try {
-    const token = await authentication.getApiAccessToken(KEY, SECRET, 3600);
-    await communications.streaming.stopRts(token, conferenceId);
-    return res.status(204).send('OK');
-  } catch (e) {
-    console.log(e);
-    const { status, message } = processErrorStatus(e);
-    return res.status(status).send(message);
-  }
-});
+    if (!conferenceId) {
+      return res.status(400).json({ error: 'Missing conference id param.' });
+    }
+    try {
+      const token = await authentication.getApiAccessToken(params.commsKey, params.commsSecret, 3600);
+      await communications.streaming.stopRts(token, conferenceId);
+      return res.status(204).send('OK');
+    } catch (e) {
+      console.log(e);
+      const { status, message } = processErrorStatus(e);
+      return res.status(status).send(message);
+    }
+  });
 
-export default router;
+  return router;
+}

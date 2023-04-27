@@ -1,5 +1,7 @@
 # Dolby.io Events React App
 
+[![Deploy to Netlify from fork](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/dolbyio-samples/comms-app-react-events)
+
 ## Overview
 
 This project demonstrates what an events experience is like, built using React.
@@ -104,7 +106,9 @@ yarn dev
 
 #### Open the app in a browser
 
-After the appropriate message appears in the terminal window, open <http://localhost:3000> in the browser. The application will launch at this address.
+After the appropriate message appears in the terminal window, open <http://localhost:3000> in the browser. The application will launch at this address and will look like the screenshot below.
+
+![built](.documentation/Events-built.png)
 
 > If the app isn't loading, make sure you've started the proxy server.
 

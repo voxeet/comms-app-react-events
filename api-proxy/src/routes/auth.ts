@@ -1,20 +1,17 @@
 import { communications } from '@dolbyio/dolbyio-rest-apis-client';
-import express from 'express';
+import { Router } from 'express';
 
-import { env } from '../utils/env';
+export function getAuthRoutes(params: { commsKey: string; commsSecret: string }) {
+  const router = Router();
 
-const router = express.Router();
+  router.get('/client-access-token', async (req, res) => {
+    try {
+      const token = await communications.authentication.getClientAccessToken(params.commsKey, params.commsSecret, 3600);
+      return res.status(200).send({ access_token: token.access_token });
+    } catch (e) {
+      return res.status(500).send(e);
+    }
+  });
 
-const KEY = env('KEY');
-const SECRET = env('SECRET');
-
-router.get('/client-access-token', async (req, res) => {
-  try {
-    const token = await communications.authentication.getClientAccessToken(KEY, SECRET, 3600);
-    return res.status(200).send({ access_token: token.access_token });
-  } catch (e) {
-    return res.status(500).send(e);
-  }
-});
-
-export default router;
+  return router;
+}

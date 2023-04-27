@@ -1,28 +1,19 @@
 const defaulted = {
-  VITE_API_PROXY_URL: 'http://localhost:4000',
+  VITE_API_PROXY_URL: '/.netlify/functions',
+  VITE_ENABLE_UNGATED_FEATURES: undefined,
+  VITE_PUBNUB_PUBLISH_KEY: undefined,
+  VITE_PUBNUB_SUBSCRIBE_KEY: undefined,
 } as const;
 
 export function ungatedFeaturesEnabled(): boolean {
-  const value = import.meta.env.VITE_ENABLE_UNGATED_FEATURES;
+  const value = env('VITE_ENABLE_UNGATED_FEATURES');
 
   return value === 'true';
 }
 
-/*
-  This is a type-safe form of getting env vars, including some defaulted values.
-  */
-
+/**
+ * Type-safe form of getting env vars, including some defaulted values.
+ */
 export const env = (name: keyof typeof defaulted): string => {
-  const value = import.meta.env[name];
-  const defaultVal = defaulted[name];
-
-  if (!value && defaultVal) {
-    return defaultVal;
-  }
-
-  if (!value) {
-    throw new Error(`Missing: process.env['${name}'].`);
-  }
-
-  return value;
+  return import.meta.env[name] ?? defaulted[name];
 };

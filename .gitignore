@@ -4,5 +4,6 @@
 dist
 dist-ssr
 node_modules
+e2e-tests/test-reports
 
 .env

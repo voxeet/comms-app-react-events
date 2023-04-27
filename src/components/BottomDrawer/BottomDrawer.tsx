@@ -13,10 +13,11 @@ import {
   useErrors,
   useNotifications,
   useParticipants,
+  useLiveStreaming,
   useTheme,
 } from '@dolbyio/comms-uikit-react';
 import useDrawer from '@hooks/useDrawer';
-import { useLiveStreaming } from '@hooks/useLiveStreaming';
+import getProxyUrl from '@src/utils/getProxyUrl';
 import cx from 'classnames';
 import { useIntl } from 'react-intl';
 
@@ -30,7 +31,7 @@ type BottomDrawerProps = {
 
 const BottomDrawer = ({ close }: BottomDrawerProps) => {
   const { isTablet, isMobileSmall, isMobile } = useTheme();
-  const { streamHandler } = useLiveStreaming();
+  const { stopLiveStreamingByProxy } = useLiveStreaming();
   const { participants } = useParticipants();
   const { openDrawer } = useDrawer();
   const { showSuccessNotification, showErrorNotification } = useNotifications();
@@ -123,7 +124,7 @@ const BottomDrawer = ({ close }: BottomDrawerProps) => {
               renderDataInput={renderDataInput}
               renderStopConfirmation={renderStopStreamingModal}
               stopStreaming={async () => {
-                await streamHandler('stop');
+                await stopLiveStreamingByProxy(getProxyUrl());
                 close();
               }}
               onStopLiveStreamingAction={() =>

@@ -11,6 +11,7 @@ export enum SideDrawerContentTypes {
   DEVICE_SETUP,
   PARTICIPANTS,
   CONFERENCE_SETTINGS,
+  CHAT,
 }
 
 type AppProviderProps = { children: ReactNode };

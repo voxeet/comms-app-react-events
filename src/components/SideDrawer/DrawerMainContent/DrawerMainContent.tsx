@@ -32,7 +32,7 @@ export const DrawerMainContent = ({ children, scrollbarColor = 'grey.600' }: Dra
   return (
     <>
       <style>{drawerContentStyles}</style>
-      <Space testID="DrawerMainContent" pt="s" className={cx('drawerContent', styles.content)}>
+      <Space testID="DrawerMainContent" className={cx('drawerContent', styles.content)}>
         {children}
       </Space>
     </>

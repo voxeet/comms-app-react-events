@@ -1,0 +1,22 @@
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: var(--spaces-xxxxl);
+}
+
+.eventTitle {
+  margin-bottom: var(--spaces-l);
+}
+
+.form {
+  display: grid;
+  gap: var(--spaces-s);
+  width: 400px;
+}

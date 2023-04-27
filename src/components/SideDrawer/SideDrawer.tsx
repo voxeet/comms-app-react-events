@@ -4,26 +4,34 @@ import ConferenceDeviceSettings from '@src/components/SideDrawer/ContentTypes/Co
 import DeviceSetup from '@src/components/SideDrawer/ContentTypes/DeviceSetup/DeviceSetup';
 import Participants from '@src/components/SideDrawer/ContentTypes/Participants/Participants';
 import { SideDrawerContentTypes } from '@src/context/SideDrawerContext';
+import { ChatMessage } from '@src/types/chat';
 import { ActiveParticipants } from '@voxeet/voxeet-web-sdk/types/events/notification';
 import cx from 'classnames';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 import SideDrawerBottomBar from '../SideDrawerBottomBar/SideDrawerBottomBar';
 
+import { Chat } from './ContentTypes/Chat/Chat';
 import styles from './SideDrawer.module.scss';
 
 const isSafariMobile = navigator.userAgent.match(/safari/i) && !('chrome' in window);
 
 type SideDrawerProps = {
   activeParticipants?: ActiveParticipants;
+  messages?: ChatMessage[];
+  onMessageSubmit?: (text: string) => void;
   onParticipantsClick?: () => void;
+  onChatClick?: () => void;
   onSettingsClick?: () => void;
   onExitConfirm?: () => void;
 };
 
 export const SideDrawer = ({
   activeParticipants,
+  messages,
+  onMessageSubmit,
   onParticipantsClick,
+  onChatClick,
   onSettingsClick,
   onExitConfirm,
 }: SideDrawerProps) => {
@@ -41,20 +49,7 @@ export const SideDrawer = ({
   const isSafariTablet = isSafariMobile && !isSmartphone;
   const isVisible = isDrawerOpen && contentType !== null;
 
-  const background = useMemo(() => {
-    if (
-      contentType === SideDrawerContentTypes.PARTICIPANTS ||
-      contentType === SideDrawerContentTypes.CONFERENCE_SETTINGS
-    ) {
-      return 'grey.800';
-    }
-    if (contentType === SideDrawerContentTypes.DEVICE_SETUP) {
-      return 'grey.800';
-    }
-    return 'grey.800';
-  }, [contentType]);
-
-  const content = useMemo(() => {
+  const content = () => {
     if (contentType === SideDrawerContentTypes.DEVICE_SETUP) {
       return <DeviceSetup />;
     }
@@ -64,8 +59,11 @@ export const SideDrawer = ({
     if (contentType === SideDrawerContentTypes.CONFERENCE_SETTINGS) {
       return <ConferenceDeviceSettings />;
     }
+    if (contentType === SideDrawerContentTypes.CHAT && messages && onMessageSubmit) {
+      return <Chat messages={messages} onMessageSubmit={onMessageSubmit} />;
+    }
     return null;
-  }, [activeParticipants, contentType]);
+  };
 
   return (
     <>
@@ -76,17 +74,18 @@ export const SideDrawer = ({
           fh
           testID="Drawer"
           className={cx(styles.drawer, isSmartphone && styles.mobile, isVisible && styles.active)}
-          style={{ backgroundColor: getColor(background, 'grey.800') }}
+          style={{ backgroundColor: getColor('grey.800') }}
         >
           <Space fw fh className={styles.container}>
             {isVisible && (
               <>
-                {content}
+                {content()}
                 <SideDrawerBottomBar
                   contentType={contentType}
-                  onExitConfirm={onExitConfirm}
-                  onSettingsClick={onSettingsClick}
                   onParticipantsClick={onParticipantsClick}
+                  onChatClick={onChatClick}
+                  onSettingsClick={onSettingsClick}
+                  onExitConfirm={onExitConfirm}
                 />
               </>
             )}

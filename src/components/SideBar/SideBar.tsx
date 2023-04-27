@@ -21,12 +21,14 @@ const SideBarButton = (
 const SideBar = ({
   numParticipants,
   onParticipantsClick,
+  onChatClick,
   onInviteClick,
   onSettingsClick,
   onExitConfirm,
 }: {
   numParticipants?: number;
   onParticipantsClick?: () => void;
+  onChatClick?: () => void;
   onInviteClick?: () => void;
   onSettingsClick?: () => void;
   onExitConfirm?: () => void;
@@ -47,6 +49,9 @@ const SideBar = ({
           icon="participants"
           onClick={onParticipantsClick}
         />
+      )}
+      {onChatClick && (
+        <SideBarButton id="chatButton" testID="ChatButton" tooltipText="Chat" icon="chat" onClick={onChatClick} />
       )}
       <div className={styles.lowerSectionStart} />
       {onInviteClick && (

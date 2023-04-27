@@ -13,9 +13,10 @@ import {
   useNotifications,
   useRecording,
   useScreenSharing,
+  useLiveStreaming,
   useTheme,
 } from '@dolbyio/comms-uikit-react';
-import { useLiveStreaming } from '@hooks/useLiveStreaming';
+import getProxyUrl from '@src/utils/getProxyUrl';
 import { forwardRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -75,7 +76,7 @@ const StreamingModal = ({
   isStreamingModal: boolean;
   setStreamingModal: (newVal: boolean) => void;
 }) => {
-  const { status: streamingStatus, streamHandler } = useLiveStreaming();
+  const { status: streamingStatus, stopLiveStreamingByProxy } = useLiveStreaming();
   const { showSuccessNotification } = useNotifications();
   const intl = useIntl();
 
@@ -89,7 +90,7 @@ const StreamingModal = ({
         closeModal={() => setStreamingModal(false)}
         accept={async () => {
           setStreamingModal(false);
-          await streamHandler('stop');
+          await stopLiveStreamingByProxy(getProxyUrl());
           showSuccessNotification(intl.formatMessage({ id: 'liveStreamingEnded' }));
         }}
       />

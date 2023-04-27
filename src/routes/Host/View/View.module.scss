@@ -1,0 +1,121 @@
+.pageLayout {
+  background-color: var(--colors-black);
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 80px;
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas:
+    'header header'
+    'main sidebar';
+}
+
+.header {
+  grid-area: header;
+  background-color: var(--colors-grey-900);
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'top'
+    'stage'
+    'bottom';
+  padding: var(--spaces-s) var(--spaces-s) 0 var(--spaces-s);
+  gap: var(--spaces-s);
+}
+
+.stage {
+  grid-area: stage;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, auto);
+  gap: var(--spaces-s);
+
+  .left {
+    position: relative;
+  }
+}
+
+.hostPanel {
+  grid-area: bottom;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: var(--colors-grey-900);
+}
+
+.banners {
+  grid-area: top;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaces-xs);
+}
+
+.banner {
+  background-color: var(--colors-grey-800);
+  border-radius: 8px;
+}
+
+.notLiveBanner {
+  text-align: center;
+  padding: 14px;
+}
+
+.screenSharingBanner {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spaces-xs) var(--spaces-xs) var(--spaces-xs) var(--spaces-s);
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: var(--spaces-xs);
+  }
+}
+
+.pendingTakeoverBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.stopScreenShareModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spaces-s);
+  padding: var(--spaces-l);
+}
+
+.stageControls {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: 'status controls .';
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
+
+  .screenShareStatus {
+    grid-area: status;
+    display: flex;
+    align-items: center;
+    gap: var(--spaces-xs);
+  }
+
+  .controls {
+    grid-area: controls;
+    margin: 0 auto;
+  }
+}
+
+.visible {
+  opacity: 1;
+}

@@ -42,11 +42,13 @@ const SideDrawerBottomBarButton = (
 
 const SideDrawerBottomBar = ({
   onParticipantsClick,
+  onChatClick,
   onSettingsClick,
   onExitConfirm,
   contentType,
 }: {
   onParticipantsClick?: () => void;
+  onChatClick?: () => void;
   onSettingsClick?: () => void;
   onExitConfirm?: () => void;
   contentType: SideDrawerContentTypes | null;
@@ -65,6 +67,16 @@ const SideDrawerBottomBar = ({
           icon="participants"
           isSelected={contentType === SideDrawerContentTypes.PARTICIPANTS}
           onClick={onParticipantsClick}
+        />
+      )}
+      {onChatClick && (
+        <SideDrawerBottomBarButton
+          testID="ChatButton"
+          badgeColor="grey.400"
+          tooltipText={intl.formatMessage({ id: 'chat' })}
+          icon="chat"
+          isSelected={contentType === SideDrawerContentTypes.CHAT}
+          onClick={onChatClick}
         />
       )}
       {onSettingsClick && (

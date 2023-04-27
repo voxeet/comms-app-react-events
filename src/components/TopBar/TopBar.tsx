@@ -57,7 +57,7 @@ export const TopBar = ({
   joinType,
   eventName,
 }: {
-  isLive: boolean;
+  isLive?: boolean;
   isLoading?: boolean;
   isMinimal?: boolean;
   onStreamClick?: () => void;
@@ -111,7 +111,7 @@ export const TopBar = ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 16,
+        padding: 'var(--spaces-xs) var(--spaces-m)',
         borderBottom: `1px solid ${getColor('grey.700')}`,
       }}
       testID="TopBar"

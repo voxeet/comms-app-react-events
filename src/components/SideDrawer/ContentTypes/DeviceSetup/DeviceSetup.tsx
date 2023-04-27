@@ -8,7 +8,6 @@ import {
   useCamera,
   useMicrophone,
 } from '@dolbyio/comms-uikit-react';
-import useConferenceCreate from '@hooks/useConferenceCreate';
 import useDrawer from '@hooks/useDrawer';
 import { DrawerMainContent, DrawerHeader } from '@src/components/SideDrawer';
 import { useEffect, useState } from 'react';
@@ -23,7 +22,6 @@ const DeviceSetup = () => {
   const { getCameraPermission } = useCamera();
   const { getMicrophonePermission } = useMicrophone();
   const intl = useIntl();
-  const { username } = useConferenceCreate();
   const { isDesktop } = useTheme();
   const { isDrawerOpen } = useDrawer();
 
@@ -66,7 +64,6 @@ const DeviceSetup = () => {
           <VideoLocalView
             cameraReverseButton={!isDesktop}
             testID="DeviceSetupDrawerLocalView"
-            username={username}
             disabled={!isDrawerOpen}
             isMicrophonePermission={isMicrophonePermission}
             className={styles.videoRwd}

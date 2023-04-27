@@ -1,5 +1,6 @@
 // import { authentication, communications, streaming } from '@dolbyio/dolbyio-rest-apis-client';
 import express from 'express';
+import fetch from "node-fetch";
 
 import { env } from '../utils/env';
 import { processErrorStatus } from '../utils/errors';

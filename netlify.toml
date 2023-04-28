@@ -6,20 +6,9 @@
 
 [functions]
 
-  directory = "api-proxy/functions"
+  directory = "../api-proxy/functions"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[template]
-  incoming-hooks = ["dolbyio-events"]
-
-
-[template.environment]
-  KEY = "change me to your dolby.io app key"
-  SECRET = "change me to your dolby.io app secret"
-
-[context.production]
-  environment = { NODE_VERSION = "18", AWS_LAMBDA_JS_RUNTIME = "nodejs18.x" }

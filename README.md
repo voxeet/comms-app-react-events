@@ -1,7 +1,5 @@
 # Dolby.io Events React App
 
-[![Deploy to Netlify from fork](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Noviny/comms-app-react-events-changes)
-
 ## Overview
 
 This project demonstrates what an events experience is like, built using React.

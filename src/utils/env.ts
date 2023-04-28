@@ -1,5 +1,5 @@
 const defaulted = {
-  VITE_API_PROXY_URL: '/.netlify/functions/app',
+  VITE_API_PROXY_URL: '/.netlify/functions',
 } as const;
 
 export function ungatedFeaturesEnabled(): boolean {

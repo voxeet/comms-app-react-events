@@ -40,8 +40,5 @@
     "cross-env": "^7.0.3",
     "license-checker": "^25.0.1",
     "typescript-plugin-css-modules": "^3.4.0"
-  },
-  "workspaces": [
-    "api-proxy"
-  ]
+  }
 }

@@ -89,7 +89,7 @@ This project is built with the [Comms UI Kit for react](https://github.com/dolby
 
 ### Set up `.env` file
 
-Create a new file called `.env` and copy the contents of `.env.example` into it.
+Create a new file called `.env` in the `events` folder, and copy the contents of `.env.example` into it.
 
 You will need to provide the values for `KEY` and `SECRET` from your dolby.io app. To obtain your key and secret from the Dolby.io dashboard,
 

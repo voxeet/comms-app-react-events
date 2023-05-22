@@ -1,47 +1,32 @@
 {
-  "name": "comms-app-react-events",
+  "name": "@dolbyio/comms-app-react-events",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env ENV=web && vite",
-    "build": "cross-env ENV=web && vite build",
-    "preview": "cross-env ENV=web && vite preview",
-    "license-checker": "license-checker --json --out third-party-licenses.json --relativeLicensePath"
+    "dev": "yarn workspace comms-app-react-events run dev",
+    "build": "yarn workspace comms-app-react-events run build"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dolbyio-samples/comms-react-examples"
+    "url": "https://github.com/dolbyio-samples/comms-app-react-events"
   },
   "dependencies": {
-    "@dolbyio/comms-uikit-react": "0.9.0",
-    "@emotion/react": "^11.9.0",
-    "@voxeet/voxeet-web-sdk": "^3.9.0",
-    "axios": "^0.26.1",
-    "classnames": "^2.3.1",
-    "color": "4.2.3",
-    "focus-trap-react": "^10.1.1",
-    "prop-types": "^15.8.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-intl": "^5.24.8",
-    "react-router-dom": "6",
-    "vite": "^2.7.2",
-    "vite-plugin-static-copy": "^0.9.0",
-    "vite-plugin-svgr-component": "^1.0.0"
-  },
-  "devDependencies": {
-    "@types/chance": "^1.1.3",
-    "@types/color": "3.0.3",
-    "@types/react": "^18.0.6",
-    "@types/react-dom": "^18.0.6",
-    "@vitejs/plugin-react": "^1.0.7",
-    "concurrently": "^7.6.0",
-    "cross-env": "^7.0.3",
-    "license-checker": "^25.0.1",
-    "typescript-plugin-css-modules": "^3.4.0"
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "8.7.0",
+    "eslint-config-airbnb": "^19.0.1",
+    "eslint-config-prettier": "7.2.0",
+    "eslint-import-resolver-babel-module": "^5.3.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "3.4.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "typescript": "4.9.5"
   },
   "workspaces": [
-    "api-proxy"
+    "backend",
+    "events"
   ]
 }

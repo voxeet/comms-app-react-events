@@ -1,0 +1,48 @@
+.wrapper {
+  position: relative;
+}
+
+.textArea {
+  display: block;
+  max-height: 40vh; // fix with mobile responsive
+  color: white;
+  line-height: 150%;
+  border-radius: 10px;
+  border: 2px var(--colors-grey-400) solid;
+  padding: 12px 36px 12px 12px;
+  background-color: inherit;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--fontFamily);
+  font-size: 16px;
+  resize: none;
+  &:focus,
+  &:focus-visible {
+    border-color: var(--colors-primary-400);
+    outline: inherit;
+  }
+  &::placeholder {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 150%;
+    color: #bbbbbf;
+    letter-spacing: 0.015em;
+  }
+}
+
+.sendMessageButton {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  &:hover * {
+    fill: var(--colors-grey-500);
+  }
+  &:focus *,
+  &:focus-visible * {
+    fill: white;
+  }
+}

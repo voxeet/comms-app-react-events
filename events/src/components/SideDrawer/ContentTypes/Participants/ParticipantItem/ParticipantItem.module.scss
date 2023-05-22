@@ -1,0 +1,52 @@
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: var(--spaces-s) var(--spaces-m);
+
+  &.hover {
+    background-color: var(--colors-grey-700);
+  }
+
+  // Pseudo element version of border-bottom
+  // Needed because .item is full width but only a portion of it should have a border
+  &::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: var(--spaces-m);
+    right: var(--spaces-m);
+    height: 1px;
+    background-color: var(--colors-grey-700);
+  }
+}
+
+.avatar {
+  margin-right: var(--spaces-s);
+}
+
+.invite {
+  position: relative;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  white-space: nowrap;
+  border-radius: var(--borderRadius);
+  background-color: var(--colors-primary-400);
+  padding: var(--spaces-xs) var(--spaces-s);
+  z-index: 1;
+  transform: translateY(110%);
+}
+
+.declined {
+  border-radius: var(--borderRadius);
+  background-color: var(--colors-grey-300);
+  padding: var(--spaces-xxs) var(--spaces-xs);
+}

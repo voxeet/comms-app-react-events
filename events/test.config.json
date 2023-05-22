@@ -1,0 +1,84 @@
+{
+  "browserName": "chrome",
+  "headless": true,
+  "timeout": 90000,
+  "viewport": {
+    "width": 1280,
+    "height": 1024
+  },
+  "video": "retain-on-failure",
+  "screenshot": "only-on-failure",
+  "trace": "retain-on-failure",
+  "consoleLogValidation": false,
+  "multiContext": false,
+  "apps": [
+    {
+      "appName": "events-host",
+      "appURL": "http://localhost:3000/",
+      "browserName": "chrome",
+      "skipConsoleErrors": ["the server responded with a status of 404", "404 (Not Found)"]
+    },
+    {
+      "appName": "events-cohost1",
+      "appURL": "EVENTS_CO_HOST_APP_URL",
+      "browserName": "chrome",
+      "skipConsoleErrors": ["the server responded with a status of 404", "404 (Not Found)"]
+    },
+    {
+      "appName": "events-cohost2",
+      "appURL": "EVENTS_CO_HOST_APP_URL",
+      "browserName": "chrome",
+      "skipConsoleErrors": ["the server responded with a status of 404", "404 (Not Found)"]
+    },
+    {
+      "appName": "events-viewer1",
+      "appURL": "EVENTS_VIEWER_APP_URL",
+      "browserName": "chrome",
+      "skipConsoleErrors": ["the server responded with a status of 404", "404 (Not Found)"]
+    },
+    {
+      "appName": "events-viewer2",
+      "appURL": "EVENTS_VIEWER_APP_URL",
+      "browserName": "chrome",
+      "skipConsoleErrors": ["the server responded with a status of 404", "404 (Not Found)"]
+    }
+  ],
+  "launchOptions": {
+    "chromium": {
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--use-fake-device-for-media-stream",
+        "--use-fake-ui-for-media-stream"
+      ]
+    },
+    "chrome": {
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--use-fake-device-for-media-stream",
+        "--use-fake-ui-for-media-stream"
+      ]
+    },
+    "edge": {
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--use-fake-device-for-media-stream",
+        "--use-fake-ui-for-media-stream"
+      ]
+    },
+    "firefox": {
+      "args": ["--quiet", "--use-test-media-devices"],
+      "firefoxUserPrefs": {
+        "media.navigator.streams.fake": true,
+        "media.navigator.permission.disabled": true
+      }
+    }
+  },
+  "selectorPath": "./e2e-tests/locators",
+  "logLevel": "error",
+  "artifactsPath": "./e2e-tests/test-reports/artifacts",
+  "reportPath": "./e2e-tests/test-reports",
+  "retry": 1
+}

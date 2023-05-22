@@ -1,1 +1,0 @@
-export { InviteParticipants } from './InviteParticipants';

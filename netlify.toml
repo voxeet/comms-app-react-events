@@ -2,11 +2,11 @@
 
   command = "yarn build"
 
-  publish = "dist/"
+  publish = "events/dist/"
 
 [functions]
 
-  directory = "api-proxy/functions"
+  directory = "backend/functions"
 
 [[redirects]]
   from = "/*"
@@ -20,3 +20,6 @@
 [template.environment]
   KEY = "change me to your dolby.io app key"
   SECRET = "change me to your dolby.io app secret"
+  PUBNUB_PUBLISH_KEY = "Set your pubnub publish key to enable chat"
+  PUBNUB_SUBSCRIBE_KEY = "Set your pubnub subscribe key to enable chat"
+  PUBNUB_SECRET_KEY = "Set your pubnub secret key to enable chat"

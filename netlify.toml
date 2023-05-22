@@ -5,7 +5,12 @@
   publish = "events/dist/"
 
 [functions]
-
+  # vm2 (which PubNub uses) reads its own files (using readFileSync()) at runtime but those files don't exist because
+  # they are bundled during the build step. Adding vm2 as an external module means Netlify won't bundle vm2 which means
+  # vm2 will be able to access its own files
+  external_node_modules = ["vm2"]
+  # Must be set to "esbuild" to use external_node_modules
+  node_bundler = "esbuild"
   directory = "backend/functions"
 
 [[redirects]]

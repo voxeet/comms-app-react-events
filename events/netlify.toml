@@ -1,24 +1,24 @@
 [build]
-
   command = "yarn build"
-
   publish = "dist/"
 
 [functions]
-
-  directory = "api-proxy/functions"
+  # vm2 (which PubNub uses) reads its own files (using readFileSync()) at runtime but those files don't exist because
+  # they are bundled during the build step. Adding vm2 as an external module means Netlify won't bundle vm2 which means
+  # vm2 will be able to access its own files
+  external_node_modules = ["vm2"]
+  # Must be set to "esbuild" to use external_node_modules
+  node_bundler = "esbuild"
+  directory = "../api-proxy/functions"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[template]
-  incoming-hooks = ["dolbyio-events"]
-
-[template.environment]
-  KEY = "change me to your dolby.io app key"
-  SECRET = "change me to your dolby.io app secret"
-  PUBNUB_PUBLISH_KEY = "Set your pubnub publish key to enable chat"
-  PUBNUB_SUBSCRIBE_KEY = "Set your pubnub subscribe key to enable chat"
-  PUBNUB_SECRET_KEY = "Set your pubnub secret key to enable chat"
+[dev]
+  command = "yarn vite dev"
+  autoLaunch = false
+  framework = "#custom"
+  targetPort = 5173
+  port = 3000

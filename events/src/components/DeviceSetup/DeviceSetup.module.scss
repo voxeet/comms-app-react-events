@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.columnLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .localViewContainer {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .infoBarContainer {
+      position: absolute;
+      z-index: 1;
+      transform-origin: center;
+    }
+
+    .pill {
+      position: absolute;
+      left: var(--spaces-s);
+      top: var(--spaces-s);
+    }
+
+    .controls {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      padding-bottom: 12px;
+    }
+  }
+}
+
+.columnRight {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+
+  > * {
+    margin: 10px 0;
+  }
+}
+
+.permissionsContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 16px;
+  width: 70%;
+
+  > * {
+    margin: 10px 0;
+  }
+
+  .deviceInitialization {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+  }
+}

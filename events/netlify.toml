@@ -9,7 +9,7 @@
   external_node_modules = ["vm2"]
   # Must be set to "esbuild" to use external_node_modules
   node_bundler = "esbuild"
-  directory = "../api-proxy/functions"
+  directory = "../backend/functions"
 
 [[redirects]]
   from = "/*"

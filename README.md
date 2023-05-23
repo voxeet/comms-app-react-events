@@ -18,4 +18,4 @@ Please see [the events package readme](./events/README.md) for information on ho
 
 ### How to get a Dolby.io account
 
-Refer to [this guide](./events/README.md/#grabbing-your-app-key-and-app-secret) on how to obtain your Dolby.io access key and secret.
+Refer to [this guide](./events/README.md/#setting-up-your-dolbyio-app) on how to obtain your Dolby.io access key and secret. You can skip the section on setting up your `.env file` and proceed to the next section to obtain your app key and secret.

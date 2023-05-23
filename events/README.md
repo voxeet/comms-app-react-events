@@ -107,7 +107,7 @@ Go to the _Dashboard_, and click on the `API Keys` next to your application.
 #### Updating your .env file
 
 On the next screen, copy the `App key` and `App secret` and paste them in your `.env` file against the marked variables.
-   ![token](./documentation/client_access_token.png)
+   ![token](documentation/client_access_token.png)
 
 #### Additional features
 
@@ -117,7 +117,7 @@ The secrets will not be exposed on the frontend.
 
 #### Start the app
 
-Execute the following command to run the application locally in a terminal window inside the `/events/` directory.
+Execute the following command to run the application locally in a terminal window inside the `events/` directory.
 
 ```bash
 yarn dev

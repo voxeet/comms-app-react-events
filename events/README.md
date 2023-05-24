@@ -50,7 +50,7 @@ As you browse through the source code and documents, you might come across some 
 * **A host** is a participant with additional permissions to manage the event and other participants.
 
 * **A viewer** is a participant who can only receive video and audio stream from the event.
-* A **proxy-app-server** is an intermediary API server that communicates with the Dolby.io Communications Platform in order to provide functionality such as RTS/RTMP/HLS streaming or consuming web-hook data. You can see our sample implementation [here](./api-proxy).
+* A **proxy-app-server** is an intermediary API server that communicates with the Dolby.io Communications Platform in order to provide functionality such as RTS/RTMP/HLS streaming or consuming web-hook data. You can see our sample implementation [here](../backend/README.md).
 
 ### How to get a Dolby.io account
 
@@ -76,7 +76,7 @@ yarn
 
 The code in this directory is organised in the following way
 
-* The `src/` directory contains all the front-end code for the events app. Within this directory
+* The `events/src/` directory contains all the front-end code for the events app. Within this directory
   * `hooks/` contains wrapper functions around our SDK for re-usable functionality.
   * `components/` contains UI components that encapsulate and provide functionality.
   * `utils/` provides some generic helper functions.

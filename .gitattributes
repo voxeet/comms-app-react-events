@@ -1,5 +1,2 @@
-*.png filter=lfs diff=lfs merge=lfs -text
-*.jpg filter=lfs diff=lfs merge=lfs -text
-*.jpeg filter=lfs diff=lfs merge=lfs -text
 . !text !filter !merge !diff
 backend/img/client_access_token.png !text !filter !merge !diff

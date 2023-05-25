@@ -2,7 +2,7 @@ const defaults = {
   VITE_API_PROXY_URL: '/.netlify/functions/app',
   VITE_ENABLE_UNGATED_FEATURES: undefined,
   VITE_MAX_MESSAGES: '30',
-  VITE_APP_NAME: 'Sample App',
+  VITE_APP_NAME: 'Events Sample App',
   VITE_APP_VERSION: '1.0',
 } satisfies Record<string, string | undefined>;
 // The type above allows us to define the value type while still being strongly typed

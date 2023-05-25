@@ -38,9 +38,7 @@ To add a company logo in place of our placeholder `logo` in the events app, you 
 // You will need to wrap your `img` in a div tag to make sure it fits in fine and doesn't bloat the size of the TopBar.
 ```
 
-## Enabling chat
-
-### Chat
+## Enabling chat and promoting a viewer to a host
 
 The chat and "promoting a viewer to a co-host" features in this sample app are powered by [PubNub](https://www.pubnub.com). PubNub allows us to asynchronously send messages across all instances of an event with low latency and thus offering a compelling experience. You can get started with PubNub by following [this guide](https://www.pubnub.com/docs/general/basics/set-up-your-account).
 

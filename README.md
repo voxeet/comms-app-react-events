@@ -2,8 +2,7 @@
 
 ## Overview
 
-This project dem
-onstrates what an events experience is like, built using React.
+This project demonstrates what an events experience is like, built using React.
 
 <p align="center">
     <img src="./events/documentation/banner.jpg" />

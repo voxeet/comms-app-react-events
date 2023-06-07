@@ -1,32 +1,5 @@
 # Dolby.io Events React App
 
-## Overview
-
-This project demonstrates what an events experience is like, built using React.
-
-<p align="center">
-    <img src="./documentation/banner.jpg" />
-</p>
-
-| Intended use   | Features                                | Tech stack            |
-| -------------- | --------------------------------------- | --------------------- |
-| Events         | create, start, stream and stop an event | Typescript/Javascript |
-| Webinars       | A/V controls for hosts and viewers      | HTML/CSS              |
-| Virtual events | Mute camera and microphone              | React                 |
-|                | Screen share                            |                       |
-|                | Invite co-hosts and viewers             |                       |
-|                | Event Recording                         |                       |
-|                | Participant List                        |                       |
-
-## Requirements and supported platforms
-
-The app currently supports
-
-- Chrome 100+
-- Edge 100+
-- Safari 111+
-- Firefox 16.3+
-
 ## Getting Started
 
 The following steps will quickly get you started testing the Dolby.io Communications APIs capabilities.
@@ -119,9 +92,3 @@ After the appropriate message appears in the terminal window, open <http://local
 ## Making the App your own
 
 Follow our [customization guide](./customization.md) to better understand how you can extend the app to make it your own.
-
-## More resources
-
-Want to experience the app without building it? Try our Virtual Events [Demo app](https://events.experience.dolby.io).
-
-Looking for more sample apps and projects? Head to the [Dolby.io Project Gallery](https://docs.dolby.io/communications-apis/page/gallery).

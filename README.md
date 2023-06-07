@@ -37,7 +37,7 @@ You can deploy the Dolby.io Virtual Events app without needing to clone and buil
 
 * A Netlify account to which you're logged into
 * Your Dolby.io App key and secret
-* [Optional] Publisher and Subcriber tokens for PubNub. This is only needed if you would like to experience chat and promoting viewers to host.
+* [Optional] Publisher and Subcriber tokens, along with the secret key for PubNub. This is only needed if you would like to experience chat and promoting viewers to host.
 
 Refer to [this guide](#how-to-get-a-dolbyio-account) on how to obtain your Dolby.io tokens and [this guide from PubNub](https://www.pubnub.com/tutorials/javascript-sdk-chat-app/?step=set-up-environment) on how to obtain your PubNub tokens.
 

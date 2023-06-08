@@ -49,11 +49,13 @@ The following steps will quickly get you started testing the Dolby.io Communicat
 
 ### Pre-requisites
 
-To get started building this app you will need a Dolby.io account. You will also need the following -
+To build this app, you will need a Dolby.io account (see the **How to get a Dolby.io account** section).
 
+You will also need to install the following:
+
+* [Node v18.0.0 or higher](https://nodejs.org/en/download)
 * [NPM v8.11 or higher](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 * [Yarn v1.22.19](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
-* [Node v18.0.0 or higher](https://nodejs.org/en/download)
 
 ### Basic terminology
 

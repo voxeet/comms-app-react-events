@@ -133,7 +133,7 @@ yarn dev
 
 #### Open the app in a browser
 
-After the appropriate message appears in the terminal window, open <http://localhost:3000> in the browser. The application will launch at this address and will look like the screenshot below.
+Once the dev server starts, open <http://localhost:3000> in the browser. The application will launch at this address and will look like the screenshot below.
 
 ![built](events/documentation/home.png)
 

@@ -45,7 +45,7 @@ Refer to [this guide](#how-to-get-a-dolbyio-account) on how to obtain your Dolby
 
 ## Getting Started
 
-The following steps will quickly get you started testing the Dolby.io Communications APIs capabilities, or if you would like to deploy your own version to Netlify without building from source, you can head to the [running the demo section](#run-the-demo-directly).
+The following steps will quickly get you started testing the Dolby.io Communications APIs capabilities.
 
 ### Pre-requisites
 

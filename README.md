@@ -104,7 +104,7 @@ The code in this repository is organised in the following way
   * `utils/` provides some generic helper functions.
   * `context/` contains the React Context for the side drawer and the main component window.
 
-* The `backend/` contains the code for the proxy server.
+* The `/backend/` contains the code for the proxy server.
 
 This project is built with the [Comms UI Kit for React](https://github.com/dolbyio/comms-uikit-react) library for simplicity and re-use of standard Communications API-based components.
 

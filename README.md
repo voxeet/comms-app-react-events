@@ -67,7 +67,7 @@ As you browse through the source code and documents, you might come across some 
 
 ### How to get a Dolby.io account
 
-To setup your Dolby.io account, go to the [Dolby.io dashboard](https://dolby.io) and register for an account. After confirming your email address, you will be logged in.
+To set up your Dolby.io account, go to [Dolby.io](https://dolby.io) and register for an account. After confirming your email address, you will be logged in.
 
 > If you did not receive a verification email, check your Spam or Junk email folders.
 

@@ -123,9 +123,9 @@ If you want chat and the ability to promote a viewer to host, you will need to p
 
 The secrets will not be exposed on the frontend.
 
-#### Start the app
+#### Running the app
 
-Execute the following command to run the application locally in a terminal window inside the `/events/` directory.
+To run the application locally, execute the command below inside the `/events` directory.
 
 ```bash
 yarn dev

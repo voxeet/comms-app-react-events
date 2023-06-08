@@ -82,7 +82,7 @@ To set up your app for events, you will need to:
 
 ## How to run the Events app
 
-Run the following steps after cloning the repository to run the application locally.
+To run the application locally, clone the repository and then perform the following steps.
 
 ### Install dependencies
 

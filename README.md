@@ -119,7 +119,7 @@ You will need to provide the values for `KEY` and `SECRET` from your Dolby.io ap
 2. On the next screen, copy the `App key` and `App secret` and paste them in your `.env` file against the marked variables.
    ![token](events/documentation/client_access_token.png)
 
-If you want chat and the ability to promote a viewer to host, you will need to provide your `PUBNUB_PUBLISH_KEY`, `PUBNUB_SUBSCRIBE_KEY`, and `PUBNUB_SECRET_KEY` as well. To setup PubNub, please go through the [enabling chat guide in our customization guide](customization.md/#enabling-chat-and-promoting-a-viewer-to-co-host).
+To enable chat and the ability to promote a viewer to host, you will need to provide your `PUBNUB_PUBLISH_KEY`, `PUBNUB_SUBSCRIBE_KEY`, and `PUBNUB_SECRET_KEY` as well. To setup PubNub, please go through the [enabling chat guide in our customization guide](customization.md/#enabling-chat-and-promoting-a-viewer-to-co-host).
 
 The secrets will not be exposed on the frontend.
 

@@ -98,7 +98,7 @@ yarn
 
 The code in this repository is organised in the following way
 
-* The `/events/src/` directory contains all the front-end code for the events app. Within this directory
+* The `/events/src/` directory contains all the front-end code for the events app. Within this directory:
   * `hooks/` contains wrapper functions around our SDK for re-usable functionality.
   * `components/` contains UI components that encapsulate and provide functionality.
   * `utils/` provides some generic helper functions.

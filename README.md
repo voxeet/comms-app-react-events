@@ -106,7 +106,7 @@ The code in this repository is organised in the following way
 
 * The `backend/` contains the code for the proxy server.
 
-This project is built with the [Comms UI Kit for react](https://github.com/dolbyio/comms-uikit-react) library for simplicity and re-use of standard Communications API based components.
+This project is built with the [Comms UI Kit for React](https://github.com/dolbyio/comms-uikit-react) library for simplicity and re-use of standard Communications API-based components.
 
 ### Set up `.env` file
 

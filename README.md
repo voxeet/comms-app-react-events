@@ -59,7 +59,7 @@ You will also need to install the following:
 
 ### Basic terminology
 
-As you browse through the source code and documents, you might come across some of these terms
+As you browse through the source code and documents, you might come across some of these terms:
 
 * **A host** is a participant with additional permissions to manage the conference and other participants.
 * **A viewer** is a participant who can only receive video and audio stream from the conference.

@@ -114,7 +114,7 @@ Create a new file called `.env` in the `events` folder, and copy the contents of
 
 You will need to provide the values for `KEY` and `SECRET` from your Dolby.io app. To obtain your key and secret from the Dolby.io dashboard:
 
-1. Go to the _Dashboard_, and click on the `API Keys` next to your application.
+1. Go to the _Dashboard_ and click on the `API Keys` next to your application.
    ![dashboard](events/documentation/dashboard.png)
 2. On the next screen, copy the `App key` and `App secret` and paste them in your `.env` file against the marked variables.
    ![token](events/documentation/client_access_token.png)

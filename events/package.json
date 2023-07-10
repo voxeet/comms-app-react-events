@@ -13,7 +13,7 @@
     "url": "https://github.com/dolbyio-samples/comms-app-react-events"
   },
   "dependencies": {
-    "@dolbyio/comms-uikit-react": "1.0.0",
+    "@dolbyio/comms-uikit-react": "<2.0.0",
     "@emotion/react": "^11.9.0",
     "@vitejs/plugin-react": "^1.0.7",
     "@voxeet/voxeet-web-sdk": "^3.9.0",
